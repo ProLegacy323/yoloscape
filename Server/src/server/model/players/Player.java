@@ -30,6 +30,7 @@ public abstract class Player {
 	isActive = false,
 	isKicked = false,
 	isSkulled = false,
+	isAdmin = false,
 	friendUpdate = false,
 	newPlayer = false,
 	hasMultiSign = false,

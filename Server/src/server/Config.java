@@ -3,9 +3,9 @@ package server;
 
 public class Config {
 
-	public static final boolean SERVER_DEBUG = false;//needs to be false for Real world to work
-	
-	public static final String SERVER_NAME = "Project Insanity";
+	public static final boolean SERVER_DEBUG = true;//needs to be false for Real world to work
+	public static boolean LOG_CHAT = true;
+	public static final String SERVER_NAME = "#Yoloscape";
 	public static final String WELCOME_MESSAGE = "";
 	public static final String FORUMS = "";
 	
