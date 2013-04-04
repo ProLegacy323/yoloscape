@@ -5,10 +5,10 @@ A runescape client and server with swag.
 The Dev Team
 =========
 * Half-Shot
-  * Coder
+  * Server Coder
 * Razyre
-  * Things noone else will do
+  * ROSS PUT SOMETHING HERE
 * Figglewatts
-  * Coder
+  * Client Coder and Mathemagician
 * ProLegacy323
-  * Coder
+  * Frontend Tools Coder
