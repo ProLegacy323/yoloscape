@@ -402,8 +402,12 @@ public class PlayerSave
 			characterfile.newLine();
 			characterfile.newLine();
 			characterfile.close();
-		} catch(IOException ioexception) {
+		} catch(IOException e) {
 			Misc.println(p.playerName+": error writing file.");
+			Misc.println(e.toString());
+			Misc.println(e.getMessage());
+			Misc.println(e.getLocalizedMessage());
+			Misc.println(e.getCause().toString());
 			return false;
 		}
 		return true;
