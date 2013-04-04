@@ -29,7 +29,7 @@ public class PlayerSave
 		boolean File1 = false;
 		
 		try {
-			characterfile = new BufferedReader(new FileReader("./Data/characters/"+playerName+".txt"));
+			characterfile = new BufferedReader(new FileReader("./data/characters/"+playerName+".txt"));
 			File1 = true;
 		} catch(FileNotFoundException fileex1) {
 		}
