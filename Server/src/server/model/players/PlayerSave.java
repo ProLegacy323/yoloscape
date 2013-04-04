@@ -205,7 +205,7 @@ public class PlayerSave
 		
 		BufferedWriter characterfile = null;
 		try {
-			characterfile = new BufferedWriter(new FileWriter("./Data/characters/"+p.playerName+".txt"));
+			characterfile = new BufferedWriter(new FileWriter("./data/characters/"+p.playerName+".txt"));
 			
 			/*ACCOUNT*/
 			characterfile.write("[ACCOUNT]", 0, 9);
