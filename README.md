@@ -1,4 +1,3 @@
-yoloscape
+#YOLOscape
 =========
-
-A runescape clone with better graphics. The developers call it Runescape++
+A runescape client and server with swag.
