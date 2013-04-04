@@ -1,2 +1,2 @@
 #! /bin/sh
-exec java -classpath bin:"deps/*" server.ServerStart
+exec sudo $JAVA_JDK/java -classpath bin:"deps/*" server.ServerStart

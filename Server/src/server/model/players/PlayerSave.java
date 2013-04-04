@@ -29,7 +29,7 @@ public class PlayerSave
 		boolean File1 = false;
 		
 		try {
-			characterfile = new BufferedReader(new FileReader("./Data/characters/"+playerName+".txt"));
+			characterfile = new BufferedReader(new FileReader("./data/characters/"+playerName+".txt"));
 			File1 = true;
 		} catch(FileNotFoundException fileex1) {
 		}
@@ -205,7 +205,7 @@ public class PlayerSave
 		
 		BufferedWriter characterfile = null;
 		try {
-			characterfile = new BufferedWriter(new FileWriter("./Data/characters/"+p.playerName+".txt"));
+			characterfile = new BufferedWriter(new FileWriter("./data/characters/"+p.playerName+".txt"));
 			
 			/*ACCOUNT*/
 			characterfile.write("[ACCOUNT]", 0, 9);
@@ -402,8 +402,12 @@ public class PlayerSave
 			characterfile.newLine();
 			characterfile.newLine();
 			characterfile.close();
-		} catch(IOException ioexception) {
+		} catch(IOException e) {
 			Misc.println(p.playerName+": error writing file.");
+			Misc.println(e.toString());
+			Misc.println(e.getMessage());
+			Misc.println(e.getLocalizedMessage());
+			Misc.println(e.getCause().toString());
 			return false;
 		}
 		return true;
