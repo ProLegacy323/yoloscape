@@ -17,13 +17,9 @@ public class PlayerSave
 	///Just looks through each of the files in our characters folder and returns if the character is found.
 	public static boolean PlayerExists(String playerName)
 	{
-		try {
-			BufferedReader characterfile = null;
-			characterfile = new BufferedReader(new FileReader("./Data/characters/"+playerName+".txt"));
-		} catch(IOException fileex1) {
-			return false;
-		}
-		return true;
+		File f = new File("./data/characters/"+playerName+".txt");
+
+		return f.exists();
 	}
 	
 	///PlayerIsAdmin:

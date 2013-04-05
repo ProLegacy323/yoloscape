@@ -224,7 +224,7 @@ public class Client extends Player {
 			setSidebarInterface(12, 147); // run tab
 			setSidebarInterface(13, -1);
 			setSidebarInterface(0, 2423);
-			sendMessage("@red@Welcome to "+Config.SERVER_NAME);
+			sendMessage("@red@Welcome to " + Config.SERVER_NAME + " @red@Remember, Gaben is watching you!");
 			//sendMessage("@blu@Beta will begin tonight, and continue until next wednesday (when I return)");
 			//sendMessage("@blu@At which point, I will fix up bugs and hopefully release it publicly next weekend.");
 			//sendMessage("@blu@ALL BETA ACCOUNTS WILL BE RESET - EXP is at 10x it will be @ normal release.");
