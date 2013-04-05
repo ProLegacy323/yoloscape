@@ -35,6 +35,7 @@ public class GUI extends JFrame {
 	public static void main(String[] args) {
 		JFrame gui = new GUI();
 		gui.setVisible(true);
+		gui.setLocationRelativeTo(null);
 	}
 	
 	@SuppressWarnings({ "static-access" })
@@ -73,6 +74,7 @@ public class GUI extends JFrame {
 							host = hostField.getText();
 						if(!portField.getText().isEmpty() && portField.getText() != null)
 							port = Integer.valueOf(portField.getText());
+						new client(host, port).execute(new String[]{"10", "0", "highmem", "members", "32"});
 						new Jframe(host, port, ClientTitle);
 					}
 				}).start();

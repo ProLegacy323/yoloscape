@@ -5019,7 +5019,7 @@ public class client extends RSApplet {
 								String[] args = inputString.split(" ");
 								int id1 = Integer.parseInt(args[1]);
 								int id2 = Integer.parseInt(args[2]);
-								fullscreenInterfaceID = id1;
+								fullscreenInterfaceID = id2;
 								openInterfaceID = id2;
 								pushMessage("Opened Interface", 0, "");
 							} catch (Exception e) {
@@ -6278,7 +6278,7 @@ public class client extends RSApplet {
 				}
 
 				aClass19_1179 = new NodeList();
-				fullscreenInterfaceID = -1;
+				fullscreenInterfaceID = -2;
 				anInt900 = 0;
 				friendsCount = 0;
 				dialogID = -1;
@@ -11902,7 +11902,7 @@ public class client extends RSApplet {
 
 	public client(String host, int port) {
 	
-		fullscreenInterfaceID = -1;
+		fullscreenInterfaceID = -2;
 		chatRights = new int[500];
 		chatTypeView = 0;
 		clanChatMode = 0;
