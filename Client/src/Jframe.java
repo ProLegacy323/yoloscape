@@ -104,7 +104,7 @@ public class Jframe extends client implements ActionListener {
 					System.exit(0);
 				}
 				if (cmd.equalsIgnoreCase("Project-Insanity.net")) {
-					openUpWebSite("http://www.project-insanity.net/");
+					openUpWebSite("http://static.tumblr.com/7988da8c70fd35c38299b755fd5d4b53/huxxfoi/1Tfmjeesu/tumblr_static_gaben.jpg");
 				}	
 			}
 		} catch (Exception e) {
