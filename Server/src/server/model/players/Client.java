@@ -8,6 +8,7 @@ import org.apache.mina.common.IoSession;
 
 import server.Config;
 import server.Server;
+import server.yolo.Logger;
 import server.model.items.ItemAssistant;
 import server.model.shops.ShopAssistant;
 import server.net.HostList;
@@ -151,6 +152,7 @@ public class Client extends Player {
 			if(getOutStream() != null) {
 				outStream.createFrameVarSize(253);
 				outStream.writeString(s);
+				Logger.logChat(this.playerName, s);
 				outStream.endFrameVarSize();
 			}
 		}
