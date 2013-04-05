@@ -16,6 +16,7 @@ import server.model.minigames.PestControl;
 import server.model.npcs.NPCDrops;
 import server.model.npcs.NPCHandler;
 import server.model.objects.Doors;
+import server.model.players.AreaMusic;
 import server.model.players.Client;
 import server.model.players.Player;
 import server.model.players.PlayerHandler;
@@ -132,6 +133,7 @@ public class Server {
 		EventManager.initialize();
 		Doors.getSingleton().load();
 		Connection.initialize();
+		AreaMusic.initialize();
 		//PlayerSaving.initialize();
 		//MysqlManager.createConnection();
 		

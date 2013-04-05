@@ -92,9 +92,26 @@ public class client extends RSApplet {
 		{return null;}
 	}
 	
+	public void playSong(int id) {
+		if (currentSong != id) {
+			nextSong = id;
+			songChanging = true;
+			onDemandFetcher.method558(2, nextSong);
+			currentSong = id;
+		}
+	}
+	
 	private void stopMidi() {
+		signlink.music.stop();
 		signlink.midifade = 0;
 		signlink.midi = "stop";
+	}
+	
+	private void adjustVolume(boolean updateMidi, int volume) {
+		signlink.setVolume(volume);
+		if (updateMidi) {
+			signlink.midi = "voladjust";
+		}
 	}
 	
 	private boolean menuHasAddFriend(int j) {
@@ -1383,30 +1400,30 @@ public class client extends RSApplet {
 		}
 		if(j == 3)
 		{
-			boolean flag1 = musicEnabled;
+			boolean music = musicEnabled;
 			if(k == 0)
 			{
-				adjustVolume(musicEnabled, 0);
+				adjustVolume(musicEnabled, 500);
 				musicEnabled = true;
 			}
 			if(k == 1)
 			{
-				adjustVolume(musicEnabled, -400);
+				adjustVolume(musicEnabled, 300);
 				musicEnabled = true;
 			}
 			if(k == 2)
 			{
-				adjustVolume(musicEnabled, -800);
+				adjustVolume(musicEnabled, 100);
 				musicEnabled = true;
 			}
 			if(k == 3)
 			{
-				adjustVolume(musicEnabled, -1200);
+				adjustVolume(musicEnabled, 0);
 				musicEnabled = true;
 			}
 			if(k == 4)
 				musicEnabled = false;
-			if(musicEnabled != flag1 && !lowMem)
+			if(musicEnabled != music)
 			{
 				if(musicEnabled)
 				{
@@ -2120,7 +2137,7 @@ public class client extends RSApplet {
 		for(int i = 0; i < 4; i++)
 			aClass11Array1230[i].method210();
 		System.gc();
-		stopMidi();
+		//stopMidi();
 		currentSong = -1;
 		nextSong = -1;
 		prevSong = 0;
@@ -4735,7 +4752,7 @@ public class client extends RSApplet {
 		}
 		catch(Exception _ex) { }
 		socketStream = null;
-		stopMidi();
+		//stopMidi();
 		onDemandFetcher.disable();
 		onDemandFetcher = null;
 		aStream_834 = null;
@@ -6299,6 +6316,7 @@ public class client extends RSApplet {
 				int anInt941 = 0;
 				int anInt1260 = 0;
 				resetImageProducers2();
+				stopMidi();
 				return;
 			}
 			if(k == 3)
@@ -9272,13 +9290,6 @@ public class client extends RSApplet {
 			return super.getParameter(s);
 	}
 
-	private void adjustVolume(boolean flag, int i)
-	{
-		signlink.midivol = i;
-		if(flag)
-			signlink.midi = "voladjust";
-	}
-
 	private int extractInterfaceValues(RSInterface class9, int j)
 	{
 		if(class9.valueIndexArray == null || j >= class9.valueIndexArray.length)
@@ -10891,26 +10902,27 @@ public class client extends RSApplet {
 					return true;
 					
 				case 74:
-					int i2 = inStream.method434();
-					if(i2 == 65535)
-						i2 = -1;
-					if(i2 != currentSong && musicEnabled && !lowMem && prevSong == 0) {
-						nextSong = i2;
+					int songID = inStream.method434();
+					if(songID == 65535) {
+						songID = -1;
+					}
+					if(songID != currentSong && prevSong == 0) {
+						nextSong = songID;
 						songChanging = true;
 						onDemandFetcher.method558(2, nextSong);
 					}
-					currentSong = i2;
+					currentSong = songID;
 					pktType = -1;
 					return true;
 					
 				case 121:
-					int j2 = inStream.method436();
-					int k10 = inStream.method435();
+					int songId = inStream.method436();
+					int songDelay = inStream.method435();
 					if(musicEnabled && !lowMem) {
-						nextSong = j2;
+						nextSong = songId;
 						songChanging = false;
 						onDemandFetcher.method558(2, nextSong);
-						prevSong = k10;
+						prevSong = songDelay;
 					}
 					pktType = -1;
 					return true;

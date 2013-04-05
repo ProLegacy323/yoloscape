@@ -418,6 +418,13 @@ public class PlayerAssistant{
 		}
 	}
 	
+	// sends a packet to the client to play music
+	public void frame74(int i1) {
+		c.getOutStream().createFrame(74);
+		c.getOutStream().writeWordBigEndian(i1);
+		c.sendMessage("Frame 74 tested. Hear anything?");
+	}
+	
 	/**
 	* Creating projectile
 	**/

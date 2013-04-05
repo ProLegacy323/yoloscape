@@ -8,6 +8,8 @@ package sign;
 import java.applet.Applet;
 import java.io.*;
 import java.net.*;
+import javax.sound.midi.*;
+import javax.sound.sampled.*;
 
 public final class signlink
     implements Runnable
@@ -113,6 +115,15 @@ public final class signlink
                 if(midiplay)
                 {
                     midi = s + savereq;
+					try {
+						if (music != null) {
+							music.stop();
+							music.close();
+						}
+						playMidi(midi);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
                     midiplay = false;
                 }
                 savereq = null;
@@ -138,6 +149,72 @@ public final class signlink
         }
 
     }
+	
+	// plays a MIDI sequence
+	private void playMidi (String location) {
+		music = null;
+		synthesizer = null;
+		sequence = null;
+		File midiFile = new File(location);
+		try {
+			sequence = MidiSystem.getSequence(midiFile);
+			music = MidiSystem.getSequencer();
+			music.open();
+			music.setSequence(sequence);
+		} catch (Exception e) {
+			System.err.println("Problem loading MIDI file.");
+			e.printStackTrace();
+			return;
+		}
+		if (music instanceof Synthesizer) {
+			synthesizer = (Synthesizer) music;
+		} else {
+			try {
+				synthesizer = MidiSystem.getSynthesizer();
+				synthesizer.open();
+				if (synthesizer.getDefaultSoundbank() == null) {
+					music.getTransmitter().setReceiver(MidiSystem.getReceiver());
+				} else {
+					music.getTransmitter().setReceiver(synthesizer.getReceiver());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
+		}
+		music.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
+		music.start();
+	}
+	
+	// sets the volume for the MIDI synthesizer
+	public static void setVolume(int value) {
+		int CHANGE_VOLUME = 7;
+		midivol = value;
+		if (synthesizer.getDefaultSoundbank() == null) {
+			try {
+				ShortMessage volumeMessage = new ShortMessage();
+				for (int i = 0; i < 16; i++)
+				{
+					volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, CHANGE_VOLUME, midivol);
+					volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 39, midivol);
+					MidiSystem.getReceiver().send(volumeMessage, -1);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			MidiChannel[] channels = synthesizer.getChannels();
+			for (int c = 0; channels != null && c < channels.length; c++)
+			{
+				channels[c].controlChange(CHANGE_VOLUME, midivol);
+				channels[c].controlChange(39, midivol);
+			}
+		}
+	}
+	
+	public static Sequencer music = null;
+	public static Sequence sequence = null;
+	public static Synthesizer synthesizer = null;
 
     public static String findcachedir() {
         return "./cache/";
