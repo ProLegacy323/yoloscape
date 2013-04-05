@@ -1,11 +1,11 @@
 [ACCOUNT]
-character-username = chins
-character-password = chins
+character-username = troooo
+character-password = bloooo
 
 [CHARACTER]
 character-height = 0
-character-posx = 3079
-character-posy = 3509
+character-posx = 3086
+character-posy = 3486
 character-rights = 0
 crystal-bow-shots = 0
 skull-timer = 0
@@ -16,7 +16,7 @@ brother-info = 2	0
 brother-info = 3	0
 brother-info = 4	0
 brother-info = 5	0
-special-amount = 1.0
+special-amount = 0.0
 selected-coffin = 0
 barrows-killcount = 0
 teleblock-length = 0

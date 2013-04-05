@@ -1,11 +1,11 @@
 [ACCOUNT]
-character-username = chins
-character-password = chins
+character-username = 14yolo
+character-password = swag
 
 [CHARACTER]
 character-height = 0
-character-posx = 3079
-character-posy = 3509
+character-posx = 3085
+character-posy = 3498
 character-rights = 0
 crystal-bow-shots = 0
 skull-timer = 0
@@ -16,7 +16,7 @@ brother-info = 2	0
 brother-info = 3	0
 brother-info = 4	0
 brother-info = 5	0
-special-amount = 1.0
+special-amount = 0.0
 selected-coffin = 0
 barrows-killcount = 0
 teleblock-length = 0
@@ -91,21 +91,25 @@ character-skill = 23	1	0
 character-skill = 24	1	0
 
 [ITEMS]
-character-item = 0	996	200000
+character-item = 0	996	300000
 character-item = 1	1732	1
-character-item = 2	555	400
-character-item = 3	556	400
-character-item = 4	557	400
-character-item = 5	559	1200
+character-item = 2	555	600
+character-item = 3	556	600
+character-item = 4	557	600
+character-item = 5	559	1800
 character-item = 6	1382	1
 character-item = 7	1324	1
 character-item = 8	842	1
-character-item = 9	883	1000
-character-item = 10	381	200
+character-item = 9	883	1500
+character-item = 10	381	300
 character-item = 11	1732	1
 character-item = 12	1382	1
 character-item = 13	1324	1
 character-item = 14	842	1
+character-item = 15	1732	1
+character-item = 16	1382	1
+character-item = 17	1324	1
+character-item = 18	842	1
 
 [BANK]
 

@@ -15,8 +15,8 @@ public class Walking implements PacketType {
 			c.faceUpdate(0);
 			c.npcIndex = 0;
 			c.playerIndex = 0;
-			if (c.followId > 0 || c.followId2 > 0)
-				c.getPA().resetFollow();
+			//if (c.followId > 0 || c.followId2 > 0)
+				//c.getPA().resetFollow();
 		}		
 		c.getPA().removeAllWindows();
 		if(c.duelRule[1] && c.duelStatus == 5) {

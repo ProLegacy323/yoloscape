@@ -22,7 +22,7 @@ public class ClickObject
     {
         client.clickObjectType = client.objectX = client.objectId = client.objectY = 0;
         client.objectYOffset = client.objectXOffset = 0;
-        client.getPA().resetFollow();
+        //client.getPA().resetFollow();
         switch(i)
         {
         default:

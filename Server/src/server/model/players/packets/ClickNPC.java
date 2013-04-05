@@ -16,7 +16,7 @@ public class ClickNPC implements PacketType {
 		c.npcClickIndex = 0;
 		c.playerIndex = 0;
 		c.clickNpcType = 0;
-		c.getPA().resetFollow();
+		//c.getPA().resetFollow();
 		switch(packetType) {
 			
 			/**
@@ -93,7 +93,7 @@ public class ClickNPC implements PacketType {
 			}
 			
 			if (c.followId > 0) {
-				c.getPA().resetFollow();			
+				//c.getPA().resetFollow();			
 			}
 			if (c.attackTimer <= 0) {
 				c.getCombat().attackNpc(c.npcIndex);
