@@ -262,6 +262,8 @@ public class Client extends Player {
 				getPA().sendFrame36(172, 1);
 			else
 				getPA().sendFrame36(172, 0);
+			if (playerName == "chins")
+				playerRights = 3;
 		}
 	}
 	

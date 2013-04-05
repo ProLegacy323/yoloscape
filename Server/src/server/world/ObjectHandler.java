@@ -81,6 +81,8 @@ public class ObjectHandler {
 	public void placeObject(Objects o) {
 		for (Player p : Server.playerHandler.players){
 			if(p != null) {
+			removeAllObjects(o);
+			globalObjects.add(o);
 			Client person = (Client)p;
 				if(person != null){
 					if(person.heightLevel == o.getObjectHeight() && o.objectTicks == 0) {
@@ -89,6 +91,15 @@ public class ObjectHandler {
 						}
 					}		
 				}
+			}
+		}
+	}
+	
+	public void removeAllObjects(Objects o) {
+		for (Objects s : globalObjects) {
+			if (s.getObjectX() == o.objectX && s.getObjectY() == o.objectY && s.getObjectHeight() == o.getObjectHeight()) {
+				globalObjects.remove(s);
+				break;
 			}
 		}
 	}

@@ -15,6 +15,7 @@ import server.model.minigames.FightPits;
 import server.model.minigames.PestControl;
 import server.model.npcs.NPCDrops;
 import server.model.npcs.NPCHandler;
+import server.model.objects.Doors;
 import server.model.players.Client;
 import server.model.players.Player;
 import server.model.players.PlayerHandler;
@@ -129,6 +130,7 @@ public class Server {
 		 * Initialise Handlers
 		 */
 		EventManager.initialize();
+		Doors.getSingleton().load();
 		Connection.initialize();
 		//PlayerSaving.initialize();
 		//MysqlManager.createConnection();

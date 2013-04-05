@@ -1104,8 +1104,8 @@ public class client extends RSApplet {
 												}
 
 										}
-										//menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name + " @gre@(@whi@" + (class9_1.inv[k2] - 1) + "@gre@)";
-										menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name;
+										menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name + " @gre@(@whi@" + (class9_1.inv[k2] - 1) + "@gre@)";
+										//menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name;
 										menuActionID[menuActionRow] = 1125;
 										menuActionCmd1[menuActionRow] = itemDef.id;
 										menuActionCmd2[menuActionRow] = k2;
