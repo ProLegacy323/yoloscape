@@ -2742,7 +2742,7 @@ public class client extends RSApplet {
 		sprite.method346(-180, -171);
 		sprite = new Sprite(titleStreamLoader, "logo", 0);
 		aRSImageProducer_1107.initDrawingArea();
-		sprite.drawSprite(382 - sprite.myWidth / 2 - 128, 18);
+		//sprite.drawSprite(382 - sprite.myWidth / 2 - 128, 18);
 		sprite = null;
 		Object obj = null;
 		Object obj1 = null;
@@ -9893,7 +9893,7 @@ public class client extends RSApplet {
 		if(loginScreenState == 2) //Existing Player
 		{
 			int j = c1 / 2 - 40;
-			chatTextDrawingArea.method382(0xffff00, c / 2, "Create a new account Yoloscape", c1 / 2 + 80, true);
+			chatTextDrawingArea.method382(0xffff00, c / 2, "Create a new Yoloscape account!", c1 / 2 + 80, true);
 			if(loginMessage1.length() > 0)
 			{
 				chatTextDrawingArea.method382(0xffff00, c / 2, loginMessage1, j - 15, true);
@@ -9972,8 +9972,8 @@ public class client extends RSApplet {
 			while(aBoolean831) 
 			{
 				anInt1208++;
-				calcFlamesPosition();
-				calcFlamesPosition();
+				//calcFlamesPosition();
+				//calcFlamesPosition();
 				doFlamesDrawing();
 				if(++i > 10)
 				{
