@@ -180,7 +180,7 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 		
 		if(PlayerSave.PlayerExists(name) == false)
 		{
-			returnCode = 4;
+			returnCode = 3;
 			if(Config.SERVER_DEBUG)
 			{
 				Logger.logConsole("Player does not exist.");

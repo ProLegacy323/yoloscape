@@ -92,9 +92,26 @@ public class client extends RSApplet {
 		{return null;}
 	}
 	
+	public void playSong(int id) {
+		if (currentSong != id) {
+			nextSong = id;
+			songChanging = true;
+			onDemandFetcher.method558(2, nextSong);
+			currentSong = id;
+		}
+	}
+	
 	private void stopMidi() {
+		signlink.music.stop();
 		signlink.midifade = 0;
 		signlink.midi = "stop";
+	}
+	
+	private void adjustVolume(boolean updateMidi, int volume) {
+		signlink.setVolume(volume);
+		if (updateMidi) {
+			signlink.midi = "voladjust";
+		}
 	}
 	
 	private boolean menuHasAddFriend(int j) {
@@ -1104,8 +1121,8 @@ public class client extends RSApplet {
 												}
 
 										}
-										//menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name + " @gre@(@whi@" + (class9_1.inv[k2] - 1) + "@gre@)";
-										menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name;
+										menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name + " @gre@(@whi@" + (class9_1.inv[k2] - 1) + "@gre@)";
+										//menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name;
 										menuActionID[menuActionRow] = 1125;
 										menuActionCmd1[menuActionRow] = itemDef.id;
 										menuActionCmd2[menuActionRow] = k2;
@@ -1383,30 +1400,30 @@ public class client extends RSApplet {
 		}
 		if(j == 3)
 		{
-			boolean flag1 = musicEnabled;
+			boolean music = musicEnabled;
 			if(k == 0)
 			{
-				adjustVolume(musicEnabled, 0);
+				adjustVolume(musicEnabled, 500);
 				musicEnabled = true;
 			}
 			if(k == 1)
 			{
-				adjustVolume(musicEnabled, -400);
+				adjustVolume(musicEnabled, 300);
 				musicEnabled = true;
 			}
 			if(k == 2)
 			{
-				adjustVolume(musicEnabled, -800);
+				adjustVolume(musicEnabled, 100);
 				musicEnabled = true;
 			}
 			if(k == 3)
 			{
-				adjustVolume(musicEnabled, -1200);
+				adjustVolume(musicEnabled, 0);
 				musicEnabled = true;
 			}
 			if(k == 4)
 				musicEnabled = false;
-			if(musicEnabled != flag1 && !lowMem)
+			if(musicEnabled != music)
 			{
 				if(musicEnabled)
 				{
@@ -1422,6 +1439,7 @@ public class client extends RSApplet {
 		}
 		if(j == 4)
 		{
+			SoundPlayer.setVolume(k);
 			if(k == 0)
 			{
 				aBoolean848 = true;
@@ -2119,7 +2137,7 @@ public class client extends RSApplet {
 		for(int i = 0; i < 4; i++)
 			aClass11Array1230[i].method210();
 		System.gc();
-		stopMidi();
+		//stopMidi();
 		currentSong = -1;
 		nextSong = -1;
 		prevSong = 0;
@@ -4734,7 +4752,7 @@ public class client extends RSApplet {
 		}
 		catch(Exception _ex) { }
 		socketStream = null;
-		stopMidi();
+		//stopMidi();
 		onDemandFetcher.disable();
 		onDemandFetcher = null;
 		aStream_834 = null;
@@ -6223,7 +6241,7 @@ public class client extends RSApplet {
 				itemSelected = 0;
 				spellSelected = 0;
 				loadingStage = 0;
-				anInt1062 = 0;
+				currentSound = 0;
 				anInt1278 = (int)(Math.random() * 100D) - 50;
 				anInt1131 = (int)(Math.random() * 110D) - 55;
 				anInt896 = (int)(Math.random() * 80D) - 40;
@@ -6298,6 +6316,7 @@ public class client extends RSApplet {
 				int anInt941 = 0;
 				int anInt1260 = 0;
 				resetImageProducers2();
+				stopMidi();
 				return;
 			}
 			if(k == 3)
@@ -6980,67 +6999,61 @@ public class client extends RSApplet {
 
 	private void method90()
 	{
-		for(int i = 0; i < anInt1062; i++)
-			if(anIntArray1250[i] <= 0)
+		for(int i = 0; i < currentSound; i++)
+			//if(soundDelay[i] <= 0)
 			{
 				boolean flag1 = false;
 				try
 				{
-					if(anIntArray1207[i] == anInt874 && anIntArray1241[i] == anInt1289)
-					{
-						if(!replayWave())
-							flag1 = true;
-					} else
-					{
-						Stream stream = Sounds.method241(anIntArray1241[i], anIntArray1207[i]);
-						if(System.currentTimeMillis() + (long)(stream.currentOffset / 22) > aLong1172 + (long)(anInt1257 / 22))
-						{
-							anInt1257 = stream.currentOffset;
-							aLong1172 = System.currentTimeMillis();
-							if(saveWave(stream.buffer, stream.currentOffset))
-							{
-								anInt874 = anIntArray1207[i];
-								anInt1289 = anIntArray1241[i];
-							} else
-							{
-								flag1 = true;
-							}
-						}
+					Stream stream = Sounds.method241(soundType[i], sound[i]);
+					new SoundPlayer((InputStream)new ByteArrayInputStream(stream.buffer, 0, stream.currentOffset), soundVolume[i], soundDelay[i]);
+					if (System.currentTimeMillis() + (long)(stream.currentOffset / 22) > aLong1172 + (long)(anInt1257 / 22)) {
+						anInt1257 = stream.currentOffset;
+						aLong1172 = System.currentTimeMillis();
 					}
+				} catch(Exception exception) { 
+					exception.printStackTrace();
 				}
-				catch(Exception exception) { }
-				if(!flag1 || anIntArray1250[i] == -5)
+				if(!flag1 || soundDelay[i] == -5)
 				{
-					anInt1062--;
-					for(int j = i; j < anInt1062; j++)
+					currentSound--;
+					for(int j = i; j < currentSound; j++)
 					{
-						anIntArray1207[j] = anIntArray1207[j + 1];
-						anIntArray1241[j] = anIntArray1241[j + 1];
-						anIntArray1250[j] = anIntArray1250[j + 1];
+						sound[j] = sound[j + 1];
+						soundType[j] = soundType[j + 1];
+						soundDelay[j] = soundDelay[j + 1];
+						soundVolume[j] = soundVolume[j + 1];
 					}
-
 					i--;
 				} else
 				{
-					anIntArray1250[i] = -5;
+					soundDelay[i] = -5;
 				}
-			} else
+			} /*else
 			{
-				anIntArray1250[i]--;
-			}
+				soundDelay[i]--;
+			}*/
 
 		if(prevSong > 0)
 		{
 			prevSong -= 20;
 			if(prevSong < 0)
 				prevSong = 0;
-			if(prevSong == 0 && musicEnabled && !lowMem)
+			if(prevSong == 0 && musicEnabled)
 			{
 				nextSong = currentSong;
 				songChanging = true;
 				onDemandFetcher.method558(2, nextSong);
 			}
 		}
+	}
+	
+	public void playSound(int id, int type, int delay, int volume) {
+		sound[currentSound] = id;
+		soundType[currentSound] = type;
+		soundDelay[currentSound] = delay + Sounds.anIntArray326[id];
+		soundVolume[currentSound] = volume;
+		currentSound++;
 	}
 
 	void startUp()
@@ -9277,13 +9290,6 @@ public class client extends RSApplet {
 			return super.getParameter(s);
 	}
 
-	private void adjustVolume(boolean flag, int i)
-	{
-		signlink.midivol = i;
-		if(flag)
-			signlink.midi = "voladjust";
-	}
-
 	private int extractInterfaceValues(RSInterface class9, int j)
 	{
 		if(class9.valueIndexArray == null || j >= class9.valueIndexArray.length)
@@ -10032,12 +10038,12 @@ public class client extends RSApplet {
 			int l11 = stream.readUnsignedByte();
 			int i14 = l11 >> 4 & 0xf;
 			int i16 = l11 & 7;
-			if(myPlayer.smallX[0] >= k3 - i14 && myPlayer.smallX[0] <= k3 + i14 && myPlayer.smallY[0] >= j6 - i14 && myPlayer.smallY[0] <= j6 + i14 && aBoolean848 && !lowMem && anInt1062 < 50)
+			if(myPlayer.smallX[0] >= k3 - i14 && myPlayer.smallX[0] <= k3 + i14 && myPlayer.smallY[0] >= j6 - i14 && myPlayer.smallY[0] <= j6 + i14 && aBoolean848 && !lowMem && currentSound < 50)
 			{
-				anIntArray1207[anInt1062] = i9;
-				anIntArray1241[anInt1062] = i16;
-				anIntArray1250[anInt1062] = Sounds.anIntArray326[i9];
-				anInt1062++;
+				sound[currentSound] = i9;
+				soundType[currentSound] = i16;
+				soundDelay[currentSound] = Sounds.anIntArray326[i9];
+				currentSound++;
 			}
 		}
 		if(j == 215)
@@ -10909,26 +10915,27 @@ public class client extends RSApplet {
 					return true;
 					
 				case 74:
-					int i2 = inStream.method434();
-					if(i2 == 65535)
-						i2 = -1;
-					if(i2 != currentSong && musicEnabled && !lowMem && prevSong == 0) {
-						nextSong = i2;
+					int songID = inStream.method434();
+					if(songID == 65535) {
+						songID = -1;
+					}
+					if(songID != currentSong && prevSong == 0) {
+						nextSong = songID;
 						songChanging = true;
 						onDemandFetcher.method558(2, nextSong);
 					}
-					currentSong = i2;
+					currentSong = songID;
 					pktType = -1;
 					return true;
 					
 				case 121:
-					int j2 = inStream.method436();
-					int k10 = inStream.method435();
+					int songId = inStream.method436();
+					int songDelay = inStream.method435();
 					if(musicEnabled && !lowMem) {
-						nextSong = j2;
+						nextSong = songId;
 						songChanging = false;
 						onDemandFetcher.method558(2, nextSong);
-						prevSong = k10;
+						prevSong = songDelay;
 					}
 					pktType = -1;
 					return true;
@@ -11181,15 +11188,15 @@ public class client extends RSApplet {
 					return true;
 					
 				case 174:
-					int i4 = inStream.readUnsignedWord();
-					int l11 = inStream.readUnsignedByte();
-					int k17 = inStream.readUnsignedWord();
-					if(aBoolean848 && !lowMem && anInt1062 < 50) {
-						anIntArray1207[anInt1062] = i4;
-						anIntArray1241[anInt1062] = l11;
-						anIntArray1250[anInt1062] = k17 + Sounds.anIntArray326[i4];
-						anInt1062++;
-					}
+					int soundId = inStream.readUnsignedByte();
+					int type = inStream.readUnsignedByte();
+					int delay = inStream.readUnsignedByte();
+					int volume = inStream.readUnsignedByte();
+					sound[currentSound] = soundId;
+					soundType[currentSound] = type;
+					soundDelay[currentSound] = delay + Sounds.anIntArray326[soundId];
+					soundVolume[currentSound] = volume;
+					currentSound++;
 					pktType = -1;
 					return true;
 					
@@ -12031,7 +12038,7 @@ public class client extends RSApplet {
 		stream = Stream.create();
 		menuActionName = new String[500];
 		anIntArray1203 = new int[5];
-		anIntArray1207 = new int[50];
+		sound = new int[50];
 		anInt1210 = 2;
 		anInt1211 = 78;
 		promptInput = "";
@@ -12043,9 +12050,10 @@ public class client extends RSApplet {
 		aClass11Array1230 = new Class11[4];
 		aBoolean1233 = false;
 		anIntArray1240 = new int[100];
-		anIntArray1241 = new int[50];
+		soundType = new int[50];
 		aBoolean1242 = false;
-		anIntArray1250 = new int[50];
+		soundDelay = new int[50];
+		soundVolume = new int[50];
 		rsAlreadyLoaded = false;
 		welcomeScreenRaised = false;
 		messagePromptRaised = false;
@@ -12296,7 +12304,7 @@ public class client extends RSApplet {
 	public final RSInterface aClass9_1059;
 	private Background[] mapScenes;
 	private static int anInt1061;
-	private int anInt1062;
+	private int currentSound;
 	private final int barFillColor;
 	private int friendsListAction;
 	private final int[] anIntArray1065;
@@ -12437,7 +12445,7 @@ public class client extends RSApplet {
 		58654, 5027, 1457, 16565, 34991, 25486
 	};
 	private static boolean flagged;
-	private final int[] anIntArray1207;
+	private final int[] sound;
 	private int anInt1208;
 	private int minimapInt2;
 	private int anInt1210;
@@ -12467,7 +12475,7 @@ public class client extends RSApplet {
 	private int anInt1238;
 	public final int anInt1239 = 100;
 	private final int[] anIntArray1240;
-	private final int[] anIntArray1241;
+	private final int[] soundType;
 	private boolean aBoolean1242;
 	private int atInventoryLoopCycle;
 	private int atInventoryInterface;
@@ -12476,7 +12484,8 @@ public class client extends RSApplet {
 	private byte[][] aByteArrayArray1247;
 	private int tradeMode;
 	private int anInt1249;
-	private final int[] anIntArray1250;
+	private final int[] soundDelay;
+	private final int[] soundVolume;
 	private int anInt1251;
 	private final boolean rsAlreadyLoaded;
 	private int anInt1253;
