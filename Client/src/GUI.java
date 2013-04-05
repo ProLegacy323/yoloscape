@@ -1,6 +1,8 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.awt.event.*;
+import java.awt.*;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -19,16 +21,16 @@ import javax.swing.UnsupportedLookAndFeelException;
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
 	
-	private JFrame frame;
-	private JTextField portField;
-	private JTextField hostField;
-	
 	// Client title
 	String ClientTitle = "YoloScape Client";
 	
 	//Default Host and Port
 	String DefaultHost = "92.237.54.134";
-	String DefaultPort = "1337";	
+	String DefaultPort = "1337";
+	
+	private JFrame frame;
+	private JTextField portField;
+	private JTextField hostField;
 	
 	public static void main(String[] args) {
 		JFrame gui = new GUI();
@@ -37,7 +39,6 @@ public class GUI extends JFrame {
 	
 	@SuppressWarnings({ "static-access" })
 	public GUI() {
-	
 		setSize(367, 286);
 		setResizable(false);
 		setTitle("Server Info n Shit!");
@@ -72,14 +73,11 @@ public class GUI extends JFrame {
 							host = hostField.getText();
 						if(!portField.getText().isEmpty() && portField.getText() != null)
 							port = Integer.valueOf(portField.getText());
-						new client(host, port).execute(new String[]{"10", "0", "highmem", "members", "32"});
 						new Jframe(host, port, ClientTitle);
 					}
-					
 				}).start();
 			}
-			
-		});				
+		});
 		
 		// Server Host
 		JLabel lblSetHost = new JLabel("Set Host:");
