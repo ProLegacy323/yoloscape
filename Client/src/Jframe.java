@@ -28,7 +28,7 @@ public class Jframe extends client implements ActionListener {
 			JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 			frame = new JFrame((title.equalsIgnoreCase("") ? "Client" : title));
 			frame.setLayout(new BorderLayout());
-			frame.setResizable(false);
+			frame.setResizable(true);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			JPanel gamePanel = new JPanel();
 
@@ -60,7 +60,7 @@ public class Jframe extends client implements ActionListener {
 			frame.pack();
 
 			frame.setVisible(true); // can see the client
-			frame.setResizable(false); // resizeable frame
+			frame.setResizable(true); // resizeable frame
 
 			init();
 		} catch (Exception e) {
