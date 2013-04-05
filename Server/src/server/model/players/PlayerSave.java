@@ -57,27 +57,36 @@ public class PlayerSave
 		boolean EndOfFile = false;
 		int ReadMode = 0;
 		BufferedReader characterfile = null;
-		boolean File1 = false;
+		boolean File1 = PlayerExists(playerName);
 		
-		try {
-			characterfile = new BufferedReader(new FileReader("./data/characters/"+playerName+".txt"));
-			File1 = true;
-		} catch(FileNotFoundException fileex1) {
+		if(File1)
+		{
+			try {
+				 characterfile = new BufferedReader(new FileReader("./data/characters/"+playerName+".txt"));
+			} catch(FileNotFoundException fileex1) {
+			
+			}
 		}
-		
-		if (File1) {
-			//new File ("./characters/"+playerName+".txt");
-		} else {
+		else{
+			new File ("./characters/"+playerName+".txt");
+			try {
+				 characterfile = new BufferedReader(new FileReader("./data/characters/"+playerName+".txt"));
+			} catch(FileNotFoundException fileex1) {
+			
+			}
 			Misc.println(playerName+": character file not found.");
-			p.newPlayer = false;
+			p.newPlayer = true;
 			return 0;
 		}
+		
+		
 		try {
 			line = characterfile.readLine();
 		} catch(IOException ioexception) {
 			Misc.println(playerName+": error loading file.");
 			return 3;
 		}
+		
 		while(EndOfFile == false && line != null) {
 			line = line.trim();
 			int spot = line.indexOf("=");
