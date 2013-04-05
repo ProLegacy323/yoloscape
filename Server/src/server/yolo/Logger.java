@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 public class Logger{
 
-	static String logDir = "./ata/logs";
+	static String logDir = "./data/logs";
 	public static void logChat(String name, String msg)
 	{
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -52,6 +52,7 @@ public class Logger{
 		} catch (IOException e) {
 			//System.out.println("[Logger] Couldn't find " + logDir + "/game.log" + " . Not logging chat.");
 		}
+		
 		System.out.println(log);
 	}
 	

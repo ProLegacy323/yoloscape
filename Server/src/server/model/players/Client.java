@@ -152,7 +152,7 @@ public class Client extends Player {
 			if(getOutStream() != null) {
 				outStream.createFrameVarSize(253);
 				outStream.writeString(s);
-				Logger.logChat(this.playerName, s);
+				//Logger.logChat(this.playerName, s);
 				outStream.endFrameVarSize();
 			}
 		}
