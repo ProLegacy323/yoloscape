@@ -3,6 +3,7 @@ package server.model.players.packets;
 import server.Server;
 import server.model.players.Client;
 import server.model.players.PacketType;
+import server.model.players.AreaMusic;
 
 /**
  * Change Regions
@@ -11,10 +12,11 @@ public class ChangeRegions implements PacketType {
 
 	@Override
 	public void processPacket(Client c, int packetType, int packetSize) {
-		//Server.objectHandler.updateObjects(c);
+		Server.objectHandler.updateObjects(c);
 		Server.itemHandler.reloadItems(c);
 		Server.objectManager.loadObjects(c);
 		c.getPA().castleWarsObjects();
+		AreaMusic.loadAreaMusic(c);
 		
 		c.saveFile = true;
 		

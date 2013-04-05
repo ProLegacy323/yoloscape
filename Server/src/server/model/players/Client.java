@@ -157,6 +157,36 @@ public class Client extends Player {
 			}
 		}
 	}
+	
+	public void sendSound(int id, int type, int delay, int volume) {
+		if (outStream != null && this != null && id != -1)
+		{
+			outStream.createFrame(174);
+			outStream.writeByte(id);
+			outStream.writeByte(type);
+			outStream.writeByte(delay);
+			outStream.writeByte(volume);
+			flushOutStream();
+		}
+	}
+	
+	public void sendSong(int id) {
+		if (getOutStream() != null && this != null && id != -1)
+		{
+			outStream.createFrame(74);
+			outStream.writeWordBigEndian(id);
+		}
+	}
+	
+	public void sendQuickSong(int id, int songDelay) {
+		if (outStream != null && this != null && id != -1)
+		{
+			outStream.createFrame(121);
+			outStream.writeWordBigEndian(id);
+			outStream.writeByte(songDelay);
+			flushOutStream();
+		}
+	}
 
 	public void setSidebarInterface(int menuId, int form) {
 		synchronized (this) {
@@ -205,6 +235,7 @@ public class Client extends Player {
 			setSidebarInterface(3, 3213);
 			setSidebarInterface(4, 1644);
 			setSidebarInterface(5, 5608);
+			sendSong(1);
 			if(playerMagicBook == 0) {
 				setSidebarInterface(6, 1151); //modern
 				}else {
@@ -256,7 +287,7 @@ public class Client extends Player {
 			handler.updateNPC(this, outStream);
 			flushOutStream();
 			getPA().clearClanChat();
-			getPA().resetFollow();
+			//getPA().resetFollow();
 			if (addStarter)
 				Misc.println("ADDING STARTER FOR "+playerName+"");
 				getPA().addStarter();
@@ -264,6 +295,9 @@ public class Client extends Player {
 				getPA().sendFrame36(172, 1);
 			else
 				getPA().sendFrame36(172, 0);
+			/*if (playerName == "chins")
+				playerRights = 3;*/
+			sendSound(153, 0, 0, 10);
 		}
 	}
 	

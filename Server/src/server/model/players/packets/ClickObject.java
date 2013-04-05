@@ -2,6 +2,7 @@ package server.model.players.packets;
 
 import server.model.players.*;
 import server.model.players.skills.Runecrafting;
+import server.model.objects.Doors;
 import server.util.Misc;
 import server.util.Stream;
 
@@ -21,7 +22,7 @@ public class ClickObject
     {
         client.clickObjectType = client.objectX = client.objectId = client.objectY = 0;
         client.objectYOffset = client.objectXOffset = 0;
-        client.getPA().resetFollow();
+        //client.getPA().resetFollow();
         switch(i)
         {
         default:
@@ -31,6 +32,11 @@ public class ClickObject
             client.objectX = client.getInStream().readSignedWordBigEndianA();
             client.objectId = client.getInStream().readUnsignedWord();
             client.objectY = client.getInStream().readUnsignedWordA();
+			if (client.goodDistance(client.getX(), client.getY(), client.objectX, client.objectY, 1)) {
+				if (Doors.getSingleton().handleDoor(client.objectId, client.objectX, client.objectY, client.heightLevel)) {
+					
+				}
+			}
             client.objectDistance = 1;
             if(client.playerRights >= 3 && client.playerName.equalsIgnoreCase("Sanity"))
             {

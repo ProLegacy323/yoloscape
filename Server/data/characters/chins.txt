@@ -4,8 +4,13 @@ character-password = chins
 
 [CHARACTER]
 character-height = 0
+<<<<<<< HEAD
 character-posx = 3301
 character-posy = 3207
+=======
+character-posx = 3089
+character-posy = 3500
+>>>>>>> ca11f00424bfee9634c958dd82d52c98e80a3abd
 character-rights = 0
 crystal-bow-shots = 0
 skull-timer = 0
@@ -16,7 +21,11 @@ brother-info = 2	0
 brother-info = 3	0
 brother-info = 4	0
 brother-info = 5	0
+<<<<<<< HEAD
 special-amount = 10.0
+=======
+special-amount = 9.0
+>>>>>>> ca11f00424bfee9634c958dd82d52c98e80a3abd
 selected-coffin = 0
 barrows-killcount = 0
 teleblock-length = 0
@@ -91,15 +100,25 @@ character-skill = 23	1	0
 character-skill = 24	1	0
 
 [ITEMS]
+<<<<<<< HEAD
 character-item = 0	996	900000
 character-item = 1	1732	1
 character-item = 2	555	1800
 character-item = 3	556	1800
 character-item = 4	557	1800
 character-item = 5	559	5400
+=======
+character-item = 0	996	500000
+character-item = 1	1732	1
+character-item = 2	555	1000
+character-item = 3	556	1000
+character-item = 4	557	1000
+character-item = 5	559	3000
+>>>>>>> ca11f00424bfee9634c958dd82d52c98e80a3abd
 character-item = 6	1382	1
 character-item = 7	1382	1
 character-item = 8	842	1
+<<<<<<< HEAD
 character-item = 9	1732	1
 character-item = 10	381	900
 character-item = 11	1732	1
@@ -107,11 +126,21 @@ character-item = 12	1382	1
 character-item = 13	1732	1
 character-item = 14	842	1
 character-item = 15	1382	1
+=======
+character-item = 9	883	2500
+character-item = 10	381	500
+character-item = 11	1732	1
+character-item = 12	1382	1
+character-item = 13	1324	1
+character-item = 14	842	1
+character-item = 15	1732	1
+>>>>>>> ca11f00424bfee9634c958dd82d52c98e80a3abd
 character-item = 16	1382	1
 character-item = 17	1324	1
 character-item = 18	842	1
 character-item = 19	1732	1
 character-item = 20	1382	1
+<<<<<<< HEAD
 character-item = 21	842	1
 character-item = 22	842	1
 character-item = 23	1732	1
@@ -119,10 +148,19 @@ character-item = 24	1382	1
 character-item = 25	883	1000
 character-item = 26	842	1
 character-item = 27	1732	1
+=======
+character-item = 21	1324	1
+character-item = 22	842	1
+character-item = 23	1732	1
+character-item = 24	1382	1
+character-item = 25	1324	1
+character-item = 26	842	1
+>>>>>>> ca11f00424bfee9634c958dd82d52c98e80a3abd
 
 [BANK]
 
 [FRIENDS]
+character-friend = 0	94537113764278822
 
 [EOF]
 
