@@ -2722,7 +2722,7 @@ public class client extends RSApplet {
 
 			System.arraycopy(ai, 0, sprite.myPixels, sprite.myWidth * j, sprite.myWidth);
 		}
-		aRSImageProducer_1110.initDrawingArea();
+		/*aRSImageProducer_1110.initDrawingArea();
 		sprite.method346(382, 0);
 		aRSImageProducer_1111.initDrawingArea();
 		sprite.method346(-255, 0);
@@ -2739,10 +2739,9 @@ public class client extends RSApplet {
 		aRSImageProducer_1114.initDrawingArea();
 		sprite.method346(254, -171);
 		aRSImageProducer_1115.initDrawingArea();
-		sprite.method346(-180, -171);
-		sprite = new Sprite(titleStreamLoader, "logo", 0);
-		aRSImageProducer_1107.initDrawingArea();
-		sprite.drawSprite(382 - sprite.myWidth / 2 - 128, 18);
+        sprite.method346(254, -171);
+        aRSImageProducer_1115.initDrawingArea();
+        sprite.method346(-180, -171);*/
 		sprite = null;
 		Object obj = null;
 		Object obj1 = null;
@@ -5019,7 +5018,7 @@ public class client extends RSApplet {
 								String[] args = inputString.split(" ");
 								int id1 = Integer.parseInt(args[1]);
 								int id2 = Integer.parseInt(args[2]);
-								fullscreenInterfaceID = id1;
+								fullscreenInterfaceID = id2;
 								openInterfaceID = id2;
 								pushMessage("Opened Interface", 0, "");
 							} catch (Exception e) {
@@ -6278,7 +6277,7 @@ public class client extends RSApplet {
 				}
 
 				aClass19_1179 = new NodeList();
-				fullscreenInterfaceID = -1;
+				fullscreenInterfaceID = -2;
 				anInt900 = 0;
 				friendsCount = 0;
 				dialogID = -1;
@@ -9893,7 +9892,7 @@ public class client extends RSApplet {
 		if(loginScreenState == 2) //Existing Player
 		{
 			int j = c1 / 2 - 40;
-			chatTextDrawingArea.method382(0xffff00, c / 2, "Create a new account Yoloscape", c1 / 2 + 80, true);
+			chatTextDrawingArea.method382(0xffff00, c / 2, "Create a new Yoloscape account!", c1 / 2 + 80, true);
 			if(loginMessage1.length() > 0)
 			{
 				chatTextDrawingArea.method382(0xffff00, c / 2, loginMessage1, j - 15, true);
@@ -9972,8 +9971,8 @@ public class client extends RSApplet {
 			while(aBoolean831) 
 			{
 				anInt1208++;
-				calcFlamesPosition();
-				calcFlamesPosition();
+				//calcFlamesPosition();
+				//calcFlamesPosition();
 				doFlamesDrawing();
 				if(++i > 10)
 				{
@@ -11902,7 +11901,7 @@ public class client extends RSApplet {
 
 	public client(String host, int port) {
 	
-		fullscreenInterfaceID = -1;
+		fullscreenInterfaceID = -2;
 		chatRights = new int[500];
 		chatTypeView = 0;
 		clanChatMode = 0;

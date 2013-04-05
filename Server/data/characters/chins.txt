@@ -4,8 +4,8 @@ character-password = chins
 
 [CHARACTER]
 character-height = 0
-character-posx = 3255
-character-posy = 3253
+character-posx = 3247
+character-posy = 3265
 character-rights = 0
 crystal-bow-shots = 0
 skull-timer = 0
