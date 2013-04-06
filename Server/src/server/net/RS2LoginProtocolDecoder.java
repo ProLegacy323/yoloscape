@@ -147,10 +147,10 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 		//Loggin new user
 		if(Config.SERVER_DEBUG)
 		{
-		System.out.println("New Player:");
-		System.out.println("Name: " + name);
-		System.out.println("UID: " + uid);
-		System.out.println("Version: " + version);
+			System.out.println("New Player:");
+			System.out.println("Name: " + name);
+			System.out.println("UID: " + uid);
+			System.out.println("Version: " + version);
 		}
 		
 		name = name.trim();

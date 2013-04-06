@@ -114,6 +114,31 @@ public class client extends RSApplet {
 		}
 	}
 	
+	// decompresses the music
+	public void musics() {
+		for (int musicIndex = 0; musicIndex < 3536; musicIndex++) {
+			byte[] abyte0 = GetMusic(musicIndex);
+			if (abyte0 != null && abyte0.length > 0) {
+				decompressors[3].method234(abyte0.length, abyte0, musicIndex);
+			}
+		}
+	}
+	
+	// actually creates the .gz file for unpacking and editing
+	public byte[] GetMusic(int index) {
+		try {
+			File music = new File("./Music"+index+".gz");
+			byte[] aByte = new byte[(int)music.length()];
+			FileInputStream inputStream = new FileInputStream(music);
+			inputStream.read(aByte);
+			System.out.println(""+index+" aByte = ["+aByte+"].");
+			inputStream.close();
+			return aByte;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	private boolean menuHasAddFriend(int j) {
 		if(j < 0)
 			return false;
@@ -2138,8 +2163,8 @@ public class client extends RSApplet {
 			aClass11Array1230[i].method210();
 		System.gc();
 		//stopMidi();
-		currentSong = -1;
-		nextSong = -1;
+		currentSong = 30;
+		nextSong = 30;
 		prevSong = 0;
 	}
 
@@ -6278,7 +6303,7 @@ public class client extends RSApplet {
 				}
 
 				aClass19_1179 = new NodeList();
-				fullscreenInterfaceID = -2;
+				fullscreenInterfaceID = -1;
 				anInt900 = 0;
 				friendsCount = 0;
 				dialogID = -1;
@@ -7098,13 +7123,14 @@ public class client extends RSApplet {
 			drawLoadingText(60, "Connecting to update server");
 			onDemandFetcher = new OnDemandFetcher();
 			onDemandFetcher.start(streamLoader_6, this);
+			//musics();
 			Class36.method528(onDemandFetcher.getAnimCount());
 			Model.method459(onDemandFetcher.getVersionCount(0), onDemandFetcher);
 			ModelDecompressor.loadModels();
 			//preloadModels();
 			if(!lowMem)
 			{
-				nextSong = 0;
+				nextSong = 30;
 				try
 				{
 					nextSong = Integer.parseInt(getParameter("music"));
@@ -11902,7 +11928,7 @@ public class client extends RSApplet {
 
 	public client(String host, int port) {
 	
-		fullscreenInterfaceID = -2;
+		fullscreenInterfaceID = -1;
 		chatRights = new int[500];
 		chatTypeView = 0;
 		clanChatMode = 0;
@@ -11956,7 +11982,7 @@ public class client extends RSApplet {
 		redStones = new Sprite[5];
 		aBoolean954 = true;
 		friendsListAsLongs = new long[200];
-		currentSong = -1;
+		currentSong = 30;
 		drawingFlames = false;
 		spriteDrawX = -1;
 		spriteDrawY = -1;

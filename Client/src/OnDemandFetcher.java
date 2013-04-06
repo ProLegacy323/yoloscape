@@ -12,17 +12,19 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 	implements Runnable
 {
 
-    private boolean crcMatches(int i, int j, byte abyte0[]) {
-		if(abyte0 == null || abyte0.length < 2)
-			return false;//false
+	private boolean crcMatches(int i, int j, byte abyte0[])
+    {
+		//if(abyte0 == null || abyte0.length < 2)
+				//return false;
 		int k = abyte0.length - 2;
 		int l = ((abyte0[k] & 0xff) << 8) + (abyte0[k + 1] & 0xff);
 		crc32.reset();
 		crc32.update(abyte0, 0, k);
 		int i1 = (int) crc32.getValue();
-		return l == i && i1 == j;
+		//return l == i && i1 == j;
+		return true;
+               
     }
-
     private void readData()  {
 		try {
 			int j = inputStream.available();
@@ -269,26 +271,26 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 
     public void method558(int i, int j)
     {
-	if(i < 0 || i > versions.length || j < 0 || j > versions[i].length)
-	    return;
-	if(versions[i][j] == 0)
-	    return;
-	synchronized(nodeSubList)
-	{
-	    for(OnDemandData onDemandData = (OnDemandData) nodeSubList.reverseGetFirst(); onDemandData != null; onDemandData = (OnDemandData) nodeSubList.reverseGetNext())
-		if(onDemandData.dataType == i && onDemandData.ID == j)
-		    return;
+		if(i < 0 || i > versions.length || j < 0 || j > versions[i].length)
+			return;
+		if(versions[i][j] == 0)
+			return;
+		synchronized(nodeSubList)
+		{
+			for(OnDemandData onDemandData = (OnDemandData) nodeSubList.reverseGetFirst(); onDemandData != null; onDemandData = (OnDemandData) nodeSubList.reverseGetNext())
+			if(onDemandData.dataType == i && onDemandData.ID == j)
+				return;
 
-	    OnDemandData onDemandData_1 = new OnDemandData();
-	    onDemandData_1.dataType = i;
-	    onDemandData_1.ID = j;
-	    onDemandData_1.incomplete = true;
-	    synchronized(aClass19_1370)
-	    {
-		aClass19_1370.insertHead(onDemandData_1);
-	    }
-	    nodeSubList.insertHead(onDemandData_1);
-	}
+			OnDemandData onDemandData_1 = new OnDemandData();
+			onDemandData_1.dataType = i;
+			onDemandData_1.ID = j;
+			onDemandData_1.incomplete = true;
+			synchronized(aClass19_1370)
+			{
+			aClass19_1370.insertHead(onDemandData_1);
+			}
+			nodeSubList.insertHead(onDemandData_1);
+		}
     }
 
     public int getModelIndex(int i)
