@@ -174,7 +174,6 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 	anIntArray1360 = new int[j1];
 	for(int j2 = 0; j2 < j1; j2++)
 	    anIntArray1360[j2] = stream2.readUnsignedWord();
-
 	abyte2 = streamLoader.getDataForName("midi_index");
 	stream2 = new Stream(abyte2);
 	j1 = abyte2.length;

@@ -2747,7 +2747,7 @@ public class client extends RSApplet {
 
 			System.arraycopy(ai, 0, sprite.myPixels, sprite.myWidth * j, sprite.myWidth);
 		}
-		aRSImageProducer_1110.initDrawingArea();
+		/*aRSImageProducer_1110.initDrawingArea();
 		sprite.method346(382, 0);
 		aRSImageProducer_1111.initDrawingArea();
 		sprite.method346(-255, 0);
@@ -2764,10 +2764,9 @@ public class client extends RSApplet {
 		aRSImageProducer_1114.initDrawingArea();
 		sprite.method346(254, -171);
 		aRSImageProducer_1115.initDrawingArea();
-		sprite.method346(-180, -171);
-		sprite = new Sprite(titleStreamLoader, "logo", 0);
-		aRSImageProducer_1107.initDrawingArea();
-		//sprite.drawSprite(382 - sprite.myWidth / 2 - 128, 18);
+        sprite.method346(254, -171);
+        aRSImageProducer_1115.initDrawingArea();
+        sprite.method346(-180, -171);*/
 		sprite = null;
 		Object obj = null;
 		Object obj1 = null;
