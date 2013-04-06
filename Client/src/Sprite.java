@@ -24,7 +24,8 @@ public final class Sprite extends DrawingArea {
 
 	public Sprite(byte abyte0[], Component component) {
 		try {
-			Image image = Toolkit.getDefaultToolkit().createImage(abyte0);
+			Image image = Toolkit.getDefaultToolkit().getImage(location + "background.png");
+			//Image image = Toolkit.getDefaultToolkit().createImage(abyte0);
 			MediaTracker mediatracker = new MediaTracker(component);
 			mediatracker.addImage(image, 0);
 			mediatracker.waitForAll();
@@ -39,24 +40,6 @@ public final class Sprite extends DrawingArea {
 			pixelgrabber.grabPixels();
 		} catch(Exception _ex) {
 			System.out.println("Error converting jpg");
-		}
-	}
-
-	public Sprite(String img, int width, int height) {
-		try {
-			Image image = Toolkit.getDefaultToolkit().createImage(FileOperations.ReadFile(img));
-			myWidth = width;
-			myHeight = height;
-			anInt1444 = myWidth;
-			anInt1445 = myHeight;
-			anInt1442 = 0;
-			anInt1443 = 0;
-			myPixels = new int[myWidth * myHeight];
-			PixelGrabber pixelgrabber = new PixelGrabber(image, 0, 0, myWidth, myHeight, myPixels, 0, myWidth);
-			pixelgrabber.grabPixels();
-			image = null;
-		} catch(Exception _ex) {
-			System.out.println(_ex);
 		}
 	}
 

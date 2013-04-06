@@ -173,7 +173,7 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 		cl.setOutStreamDecryption(outC);
 		cl.outStream.packetEncryption = outC;
 				
-		cl.saveCharacter = true; //Was false
+		cl.saveCharacter = false; //Was false
 		
 		char first = name.charAt(0);
 		cl.properName = Character.toUpperCase(first)+ name.substring(1, name.length());
@@ -181,10 +181,7 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 		if(PlayerSave.PlayerExists(name) == false)
 		{
 			returnCode = 3;
-			if(Config.SERVER_DEBUG)
-			{
-				Logger.logConsole("Player does not exist.");
-			}
+			Logger.logConsole(cl.playerName + " does not exist.");
 		}
 		
 		if(Connection.isNamedBanned(cl.playerName)) {
