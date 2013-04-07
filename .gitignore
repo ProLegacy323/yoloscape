@@ -1,1 +1,8 @@
 /Server/data/worldmap.bin
+<<<<<<< HEAD
+||||||| merged common ancestors
+/Client/cache
+=======
+
+*.class
+>>>>>>> d1b900aafc8bacd85d6138e83b2d60afcd1ae7dd
