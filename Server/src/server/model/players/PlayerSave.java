@@ -12,8 +12,39 @@ import server.util.Misc;
 
 public class PlayerSave
 {
+	///PlayerExists:
+	///-------------
+	///Just looks through each of the files in our characters folder and returns if the character is found.
+	public static boolean PlayerExists(String playerName)
+	{
+		File f = new File("./data/characters/"+playerName+".txt");
 
+		return f.exists();
+	}
 	
+	///PlayerIsAdmin:
+	///-------------
+	///Checks through admin.txt for a name and if it finds one it returns true.
+	public static boolean PlayerIsAdmin(String name)
+	{
+	
+		try {
+		FileReader fileReader = new FileReader("./Data/admins.txt"); //Load the file.
+		BufferedReader bufferedReader = new BufferedReader(fileReader); //Reads it into the buffer.
+		String line = null; //The name to check against.
+		while ((line = bufferedReader.readLine()) != null) //While there are lines to read. 
+		{
+			if(line == name) //If the name in the file is equal to our character name.
+				bufferedReader.close();
+				return true; //Return true.
+			
+		}
+		bufferedReader.close(); //Close the reader.
+		} catch(IOException fileex1) {
+		return false;
+		}
+		return false;
+	}
 	
 	/**
 	*Loading
@@ -26,27 +57,36 @@ public class PlayerSave
 		boolean EndOfFile = false;
 		int ReadMode = 0;
 		BufferedReader characterfile = null;
-		boolean File1 = false;
+		boolean File1 = PlayerExists(playerName);
 		
-		try {
-			characterfile = new BufferedReader(new FileReader("./data/characters/"+playerName+".txt"));
-			File1 = true;
-		} catch(FileNotFoundException fileex1) {
+		if(File1)
+		{
+			try {
+				 characterfile = new BufferedReader(new FileReader("./data/characters/"+playerName+".txt"));
+			} catch(FileNotFoundException fileex1) {
+			
+			}
 		}
-		
-		if (File1) {
-			//new File ("./characters/"+playerName+".txt");
-		} else {
+		else{
+			new File ("./characters/"+playerName+".txt");
+			try {
+				 characterfile = new BufferedReader(new FileReader("./data/characters/"+playerName+".txt"));
+			} catch(FileNotFoundException fileex1) {
+			
+			}
 			Misc.println(playerName+": character file not found.");
-			p.newPlayer = false;
+			p.newPlayer = true;
 			return 0;
 		}
+		
+		
 		try {
 			line = characterfile.readLine();
 		} catch(IOException ioexception) {
 			Misc.println(playerName+": error loading file.");
 			return 3;
 		}
+		
 		while(EndOfFile == false && line != null) {
 			line = line.trim();
 			int spot = line.indexOf("=");

@@ -418,6 +418,13 @@ public class PlayerAssistant{
 		}
 	}
 	
+	// sends a packet to the client to play music
+	public void frame74(int i1) {
+		c.getOutStream().createFrame(74);
+		c.getOutStream().writeWordBigEndian(i1);
+		c.sendMessage("Frame 74 tested. Hear anything?");
+	}
+	
 	/**
 	* Creating projectile
 	**/
@@ -905,7 +912,7 @@ public class PlayerAssistant{
 			if (Server.playerHandler.players[j] != null) {
 				if (Server.playerHandler.players[j].followId == c.playerId) {
 					Client c = (Client)Server.playerHandler.players[j];
-					c.getPA().resetFollow();
+					//c.getPA().resetFollow();
 				}			
 			}		
 		}	
@@ -1388,7 +1395,7 @@ public class PlayerAssistant{
 		else return j-i;
 	}
 	
-	public void resetFollow() {
+	/*public void resetFollow() {
 		c.followId = 0;
 		c.followId2 = 0;
 		c.mageFollow = false;
@@ -1396,7 +1403,7 @@ public class PlayerAssistant{
 		c.outStream.writeWord(0);
 		c.outStream.writeByte(0);
 		c.outStream.writeWord(1);
-	}
+	}*/
 	
 	public void walkTo(int i, int j) {
 		c.newWalkCmdSteps = 0;

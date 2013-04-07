@@ -12,9 +12,10 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 	implements Runnable
 {
 
-    private boolean crcMatches(int i, int j, byte abyte0[]) {
+	private boolean crcMatches(int i, int j, byte abyte0[])
+    {
 		if(abyte0 == null || abyte0.length < 2)
-			return false;//false
+				return false;
 		int k = abyte0.length - 2;
 		int l = ((abyte0[k] & 0xff) << 8) + (abyte0[k + 1] & 0xff);
 		crc32.reset();
@@ -22,7 +23,6 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 		int i1 = (int) crc32.getValue();
 		return l == i && i1 == j;
     }
-
     private void readData()  {
 		try {
 			int j = inputStream.available();
@@ -172,7 +172,6 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 	anIntArray1360 = new int[j1];
 	for(int j2 = 0; j2 < j1; j2++)
 	    anIntArray1360[j2] = stream2.readUnsignedWord();
-
 	abyte2 = streamLoader.getDataForName("midi_index");
 	stream2 = new Stream(abyte2);
 	j1 = abyte2.length;
@@ -264,36 +263,36 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 
     public int getAnimCount()
     {
-	return anIntArray1360.length;
+	return Short.MAX_VALUE;
     }
 
     public void method558(int i, int j)
     {
-	if(i < 0 || i > versions.length || j < 0 || j > versions[i].length)
-	    return;
-	if(versions[i][j] == 0)
-	    return;
-	synchronized(nodeSubList)
-	{
-	    for(OnDemandData onDemandData = (OnDemandData) nodeSubList.reverseGetFirst(); onDemandData != null; onDemandData = (OnDemandData) nodeSubList.reverseGetNext())
-		if(onDemandData.dataType == i && onDemandData.ID == j)
-		    return;
+		//if(i < 0 || i > versions.length || j < 0 || j > versions[i].length)
+			//return;
+		//if(versions[i][j] == 0)
+			//return;
+		synchronized(nodeSubList)
+		{
+			for(OnDemandData onDemandData = (OnDemandData) nodeSubList.reverseGetFirst(); onDemandData != null; onDemandData = (OnDemandData) nodeSubList.reverseGetNext())
+			if(onDemandData.dataType == i && onDemandData.ID == j)
+				return;
 
-	    OnDemandData onDemandData_1 = new OnDemandData();
-	    onDemandData_1.dataType = i;
-	    onDemandData_1.ID = j;
-	    onDemandData_1.incomplete = true;
-	    synchronized(aClass19_1370)
-	    {
-		aClass19_1370.insertHead(onDemandData_1);
-	    }
-	    nodeSubList.insertHead(onDemandData_1);
-	}
+			OnDemandData onDemandData_1 = new OnDemandData();
+			onDemandData_1.dataType = i;
+			onDemandData_1.ID = j;
+			onDemandData_1.incomplete = true;
+			synchronized(aClass19_1370)
+			{
+			aClass19_1370.insertHead(onDemandData_1);
+			}
+			nodeSubList.insertHead(onDemandData_1);
+		}
     }
 
     public int getModelIndex(int i)
     {
-	return modelIndices[i] & 0xff;
+	return Short.MAX_VALUE;
     }
 
     public void run()
@@ -318,7 +317,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 			break;
 		    waiting = false;
 		    checkReceived();
-		    handleFailed();
+		    //handleFailed();
 		    if(uncompletedCount == 0 && j >= 5)
 			break;
 		    method568();
@@ -405,8 +404,8 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
     {
 	if(clientInstance.decompressors[0] == null)
 	    return;
-	if(versions[j][i] == 0)
-	    return;
+	//if(versions[j][i] == 0)
+	    //return;
 	if(fileStatus[j][i] == 0)
 	    return;
 	if(anInt1332 == 0)
@@ -481,9 +480,9 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
     {
 	if(clientInstance.decompressors[0] == null)
 	    return;
-	if(versions[i][j] == 0)
-	    return;
-	byte abyte0[] = clientInstance.decompressors[i + 1].decompress(j);
+	//if(versions[i][j] == 0)
+	    //return;
+	//byte abyte0[] = clientInstance.decompressors[i + 1].decompress(j);
 	//if(crcMatches(versions[i][j], crcs[i][j], abyte0))
 	//    return;
 	//fileStatus[i][j] = byte0;

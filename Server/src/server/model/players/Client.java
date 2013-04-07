@@ -8,6 +8,7 @@ import org.apache.mina.common.IoSession;
 
 import server.Config;
 import server.Server;
+import server.yolo.Logger;
 import server.model.items.ItemAssistant;
 import server.model.shops.ShopAssistant;
 import server.net.HostList;
@@ -151,8 +152,40 @@ public class Client extends Player {
 			if(getOutStream() != null) {
 				outStream.createFrameVarSize(253);
 				outStream.writeString(s);
+				//Logger.logChat(this.playerName, s);
 				outStream.endFrameVarSize();
 			}
+		}
+	}
+	
+	public void sendSound(int id, int type, int delay, int volume) {
+		if (outStream != null && this != null && id != -1)
+		{
+			outStream.createFrame(174);
+			outStream.writeByte(id);
+			outStream.writeByte(type);
+			outStream.writeByte(delay);
+			outStream.writeByte(volume);
+			flushOutStream();
+		}
+	}
+	
+	public void sendSong(int id) {
+		if (getOutStream() != null && this != null && id != -1)
+		{
+			getPA().frame74(id);
+			//outStream.createFrame(74);
+			//outStream.writeWordBigEndian(id);
+		}
+	}
+	
+	public void sendQuickSong(int id, int songDelay) {
+		if (outStream != null && this != null && id != -1)
+		{
+			outStream.createFrame(121);
+			outStream.writeWordBigEndian(id);
+			outStream.writeByte(songDelay);
+			flushOutStream();
 		}
 	}
 
@@ -203,6 +236,7 @@ public class Client extends Player {
 			setSidebarInterface(3, 3213);
 			setSidebarInterface(4, 1644);
 			setSidebarInterface(5, 5608);
+			sendSong(1);
 			if(playerMagicBook == 0) {
 				setSidebarInterface(6, 1151); //modern
 				}else {
@@ -222,7 +256,7 @@ public class Client extends Player {
 			setSidebarInterface(12, 147); // run tab
 			setSidebarInterface(13, -1);
 			setSidebarInterface(0, 2423);
-			sendMessage("@red@Welcome to "+Config.SERVER_NAME);
+			sendMessage("@red@Welcome to " + Config.SERVER_NAME + " @red@Remember, Gaben is watching you!");
 			//sendMessage("@blu@Beta will begin tonight, and continue until next wednesday (when I return)");
 			//sendMessage("@blu@At which point, I will fix up bugs and hopefully release it publicly next weekend.");
 			//sendMessage("@blu@ALL BETA ACCOUNTS WILL BE RESET - EXP is at 10x it will be @ normal release.");
@@ -254,7 +288,7 @@ public class Client extends Player {
 			handler.updateNPC(this, outStream);
 			flushOutStream();
 			getPA().clearClanChat();
-			getPA().resetFollow();
+			//getPA().resetFollow();
 			if (addStarter)
 				Misc.println("ADDING STARTER FOR "+playerName+"");
 				getPA().addStarter();
@@ -262,6 +296,14 @@ public class Client extends Player {
 				getPA().sendFrame36(172, 1);
 			else
 				getPA().sendFrame36(172, 0);
+			/*if (playerName == "chins")
+				playerRights = 3;*/
+			
+			//Legacy admin compatibility.
+			if(isAdmin)
+				playerRights = 3;
+				
+			sendSound(153, 0, 0, 10);
 		}
 	}
 	

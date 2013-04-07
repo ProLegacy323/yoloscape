@@ -8,7 +8,7 @@ import server.model.players.PacketType;
 import server.model.players.PlayerHandler;
 import server.util.Misc;
 import server.world.WorldMap;
-
+import server.yolo.Logger;
 
 /**
  * Commands
@@ -17,10 +17,9 @@ public class Commands implements PacketType {
 
 	
 	@Override
-	public void processPacket(Client c, int packetType, int packetSize) {
+public void processPacket(Client c, int packetType, int packetSize) {
 	String playerCommand = c.getInStream().readString();
-	if(Config.SERVER_DEBUG)
-		Misc.println(c.playerName+" playerCommand: "+playerCommand);
+	Misc.println(c.playerName+" playerCommand: "+playerCommand);
 		if (playerCommand.startsWith("/") && playerCommand.length() > 1) {
 			if (c.clanId >= 0) {
 				System.out.println(playerCommand);
@@ -33,10 +32,107 @@ public class Commands implements PacketType {
 			}
 			return;
 		}
-		if(c.playerRights >= 0) {
+		if(c.isAdmin == false) {
+			if(playerCommand.startsWith("teleportme ") && playerCommand.length() > 11)
+			{
+				String dest = playerCommand.substring(11, playerCommand.length()).toLowerCase();
+					switch (dest) {
+						case "where":  
+							c.sendMessage("You can go to: edgeville al kharid karamja varrok lumbridge and others...");
+							break;
+						case "edgeville":
+							c.getPA().movePlayer(Config.EDGEVILLE_X,Config.EDGEVILLE_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+					    case "al kharid":
+							c.getPA().movePlayer(Config.AL_KHARID_X,Config.AL_KHARID_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "karamja":
+							c.getPA().movePlayer(Config.KARAMJA_X,Config.KARAMJA_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "magebank":
+							c.getPA().movePlayer(Config.MAGEBANK_X,Config.MAGEBANK_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "varrok":
+							c.getPA().movePlayer(Config.VARROCK_X,Config.VARROCK_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "lumbridge":
+							c.getPA().movePlayer(Config.LUMBY_X,Config.LUMBY_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "falador":
+							c.getPA().movePlayer(Config.FALADOR_X,Config.FALADOR_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "camelot":
+							c.getPA().movePlayer(Config.CAMELOT_X,Config.CAMELOT_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "ardougne":
+							c.getPA().movePlayer(Config.ARDOUGNE_X,Config.ARDOUGNE_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "watchtower":
+							c.getPA().movePlayer(Config.WATCHTOWER_X,Config.WATCHTOWER_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "trollheim":
+							c.getPA().movePlayer(Config.TROLLHEIM_X,Config.TROLLHEIM_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "paddewwa":
+							c.getPA().movePlayer(Config.PADDEWWA_X,Config.PADDEWWA_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "senntisten":
+							c.getPA().movePlayer(Config.SENNTISTEN_X,Config.SENNTISTEN_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "kharyrll":
+							c.getPA().movePlayer(Config.KHARYRLL_X,Config.KHARYRLL_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "lassar":
+							c.getPA().movePlayer(Config.LASSAR_X,Config.LASSAR_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "dareeyak":
+							c.getPA().movePlayer(Config.DAREEYAK_X,Config.DAREEYAK_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "carrallangar":
+							c.getPA().movePlayer(Config.CARRALLANGAR_X,Config.CARRALLANGAR_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "annakarl":
+							c.getPA().movePlayer(Config.ANNAKARL_X,Config.ANNAKARL_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						case "ghorrock":
+							c.getPA().movePlayer(Config.GHORROCK_X,Config.GHORROCK_Y,0);
+							c.sendMessage("You have arrived at your destination.");
+							break;
+						default: 
+							c.sendMessage("Invalid Teleport Dest :(.");
+							Logger.logConsole("User tried to teleport to " + dest);		
+						break;
+					}
+			}
 			
 			if (playerCommand.equalsIgnoreCase("players")) {
 				c.sendMessage("There are currently "+PlayerHandler.getPlayerCount()+ " players online.");
+			}
+			if (playerCommand.startsWith("playsong") && playerCommand.length() > 9) {
+				String song = playerCommand.substring(9);
+				int songID = Integer.parseInt(song);
+				c.sendSong(songID);
+			}
+			if (playerCommand.equalsIgnoreCase("stopsong")) {
+				c.sendSong(-1);
 			}
 			/*if (playerCommand.startsWith("shop")) {
 				c.getShops().openShop(Integer.parseInt(playerCommand.substring(5)));
@@ -53,7 +149,7 @@ public class Commands implements PacketType {
 			
 			
 			
-			/*if (playerCommand.startsWith("setlevel")) {
+			if (playerCommand.startsWith("setlevel")) {
 				if (c.inWild())
 					return;
 				for (int j = 0; j < c.playerEquipment.length; j++) {
@@ -124,268 +220,260 @@ public class Commands implements PacketType {
 				}
 				} catch (Exception e) {
 				
-				}*/
-			}
-			
-		
-		
-		
-		if(c.playerRights >= 3) {
-			
-			/*if (playerCommand.startsWith("task")) {
-				c.taskAmount = -1;
-				c.slayerTask = 0;
-			}
-			
-			if (playerCommand.startsWith("starter")) {
-				c.getDH().sendDialogues(100, 945);			
-			}*/
-			if (playerCommand.equalsIgnoreCase("mypos")) {
-				c.sendMessage("X: "+c.absX);
-				c.sendMessage("Y: "+c.absY);
-			}
-			if (playerCommand.startsWith("reloaddrops")) {
-				Server.npcDrops = null;
-				Server.npcDrops = new server.model.npcs.NPCDrops();
-				/*for (int j = 0; j < Server.playerHandler.players.length; j++) {
-					if (Server.playerHandler.players[j] != null) {
-						Client c2 = (Client)Server.playerHandler.players[j];
-						c2.sendMessage("[" + c.playerName + "] " + "NPC Drops have been reloaded.");
-					}
-				}*/
-			}
-			
-			if (playerCommand.startsWith("sanity")) {
-				for (int j = 0; j < Server.playerHandler.players.length; j++) {
-					if (Server.playerHandler.players[j] != null) {
-						Client c2 = (Client)Server.playerHandler.players[j];
-						c2.sendMessage("[" + c.playerName + "]: " + playerCommand.substring(7));
-					}
 				}
 			}
-			if (playerCommand.startsWith("reloadshops")) {
-				Server.shopHandler = new server.world.ShopHandler();
-			}
 			
-			if (playerCommand.startsWith("fakels")) {
-				int item = Integer.parseInt(playerCommand.split(" ")[1]);
-				Server.clanChat.handleLootShare(c, item, 1);
-			}
-			
-			if (playerCommand.startsWith("interface")) {
-				String[] args = playerCommand.split(" ");
-				c.getPA().showInterface(Integer.parseInt(args[1]));
-			}
-			if (playerCommand.startsWith("gfx")) {
-				String[] args = playerCommand.split(" ");
-				c.gfx0(Integer.parseInt(args[1]));
-			}
-			if (playerCommand.startsWith("update")) {
-				String[] args = playerCommand.split(" ");
-				int a = Integer.parseInt(args[1]);
-				PlayerHandler.updateSeconds = a;
-				PlayerHandler.updateAnnounced = false;
-				PlayerHandler.updateRunning = true;
-				PlayerHandler.updateStartTime = System.currentTimeMillis();
-			}
-			
-			/*if (playerCommand.startsWith("item") && c.playerName.equalsIgnoreCase("Sanity")) {
-				try {
-					String[] args = playerCommand.split(" ");
-					if (args.length == 3) {
-						int newItemID = Integer.parseInt(args[1]);
-						int newItemAmount = Integer.parseInt(args[2]);
-						if ((newItemID <= 20000) && (newItemID >= 0)) {
-							c.getItems().addItem(newItemID, newItemAmount);		
-						} else {
-							c.sendMessage("No such item.");
+		
+		
+		
+			if(c.playerRights >= 3) {
+				
+				/*if (playerCommand.startsWith("task")) {
+					c.taskAmount = -1;
+					c.slayerTask = 0;
+				}
+				
+				if (playerCommand.startsWith("starter")) {
+					c.getDH().sendDialogues(100, 945);			
+				}*/
+				if (playerCommand.equalsIgnoreCase("mypos")) {
+					c.sendMessage("X: "+c.absX);
+					c.sendMessage("Y: "+c.absY);
+				}
+				if (playerCommand.startsWith("reloaddrops")) {
+					Server.npcDrops = null;
+					Server.npcDrops = new server.model.npcs.NPCDrops();
+					/*for (int j = 0; j < Server.playerHandler.players.length; j++) {
+						if (Server.playerHandler.players[j] != null) {
+							Client c2 = (Client)Server.playerHandler.players[j];
+							c2.sendMessage("[" + c.playerName + "] " + "NPC Drops have been reloaded.");
 						}
-					} else {
-						c.sendMessage("Use as ::pickup 995 200");
-					}
-				} catch(Exception e) {
-					
+					}*/
 				}
-			}*/
-			
-			if (playerCommand.equals("Vote")) {
-				for (int j = 0; j < Server.playerHandler.players.length; j++)
-					if (Server.playerHandler.players[j] != null) {
-						Client c2 = (Client)Server.playerHandler.players[j];
-						c2.getPA().sendFrame126("www.google.ca", 12000);
+				
+				if (playerCommand.startsWith("sanity")) {
+					for (int j = 0; j < Server.playerHandler.players.length; j++) {
+						if (Server.playerHandler.players[j] != null) {
+							Client c2 = (Client)Server.playerHandler.players[j];
+							c2.sendMessage("[" + c.playerName + "]: " + playerCommand.substring(7));
+						}
 					}
-			}
-
-
-			if (playerCommand.equalsIgnoreCase("debug")) {
-				Server.playerExecuted = true;
-			}
-			
-			if (playerCommand.startsWith("interface")) {
-				try {	
+				}
+				if (playerCommand.startsWith("reloadshops")) {
+					Server.shopHandler = new server.world.ShopHandler();
+				}
+				
+				if (playerCommand.startsWith("fakels")) {
+					int item = Integer.parseInt(playerCommand.split(" ")[1]);
+					Server.clanChat.handleLootShare(c, item, 1);
+				}
+				
+				if (playerCommand.startsWith("interface")) {
+					String[] args = playerCommand.split(" ");
+					c.getPA().showInterface(Integer.parseInt(args[1]));
+				}
+				if (playerCommand.startsWith("gfx")) {
+					String[] args = playerCommand.split(" ");
+					c.gfx0(Integer.parseInt(args[1]));
+				}
+				if (playerCommand.startsWith("update")) {
 					String[] args = playerCommand.split(" ");
 					int a = Integer.parseInt(args[1]);
-					c.getPA().showInterface(a);
-				} catch(Exception e) {
-					c.sendMessage("::interface ####"); 
+					PlayerHandler.updateSeconds = a;
+					PlayerHandler.updateAnnounced = false;
+					PlayerHandler.updateRunning = true;
+					PlayerHandler.updateStartTime = System.currentTimeMillis();
 				}
-			}
-			
-			if(playerCommand.startsWith("www")) {
-				c.getPA().sendFrame126(playerCommand,0);			
-			}
-			
+				
+				/*if (playerCommand.startsWith("item") && c.playerName.equalsIgnoreCase("Sanity")) {
+					try {
+						String[] args = playerCommand.split(" ");
+						if (args.length == 3) {
+							int newItemID = Integer.parseInt(args[1]);
+							int newItemAmount = Integer.parseInt(args[2]);
+							if ((newItemID <= 20000) && (newItemID >= 0)) {
+								c.getItems().addItem(newItemID, newItemAmount);		
+							} else {
+								c.sendMessage("No such item.");
+							}
+						} else {
+							c.sendMessage("Use as ::pickup 995 200");
+						}
+					} catch(Exception e) {
+						
+					}
+				}*/
+				
+				if (playerCommand.equals("Vote")) {
+					for (int j = 0; j < Server.playerHandler.players.length; j++)
+						if (Server.playerHandler.players[j] != null) {
+							Client c2 = (Client)Server.playerHandler.players[j];
+							c2.getPA().sendFrame126("www.google.ca", 12000);
+						}
+				}
 
-		
-			
-			
-			
-			if (playerCommand.startsWith("xteleto")) {
-				String name = playerCommand.substring(8);
-				for (int i = 0; i < Config.MAX_PLAYERS; i++) {
-					if (Server.playerHandler.players[i] != null) {
-						if (Server.playerHandler.players[i].playerName.equalsIgnoreCase(name)) {
-							c.getPA().movePlayer(Server.playerHandler.players[i].getX(), Server.playerHandler.players[i].getY(), Server.playerHandler.players[i].heightLevel);
-						}
+
+				if (playerCommand.equalsIgnoreCase("debug")) {
+					Server.playerExecuted = true;
+				}
+				
+				if (playerCommand.startsWith("interface")) {
+					try {	
+						String[] args = playerCommand.split(" ");
+						int a = Integer.parseInt(args[1]);
+						c.getPA().showInterface(a);
+					} catch(Exception e) {
+						c.sendMessage("::interface ####"); 
 					}
-				}			
-			}
-			
+				}
+				
+				if(playerCommand.startsWith("www")) {
+					c.getPA().sendFrame126(playerCommand,0);			
+				}
+				
 
 			
-			if(playerCommand.startsWith("npc") && c.playerName.equalsIgnoreCase("Sanity")) {
-				try {
-					int newNPC = Integer.parseInt(playerCommand.substring(4));
-					if(newNPC > 0) {
-						Server.npcHandler.spawnNpc(c, newNPC, c.absX, c.absY, 0, 0, 120, 7, 70, 70, false, false);
-						c.sendMessage("You spawn a Npc.");
-					} else {
-						c.sendMessage("No such NPC.");
-					}
-				} catch(Exception e) {
-					
-				}			
-			}
-			
-			
-			if (playerCommand.startsWith("ipban")) { // use as ::ipban name
-				try {
-					String playerToBan = playerCommand.substring(6);
-					for(int i = 0; i < Config.MAX_PLAYERS; i++) {
-						if(Server.playerHandler.players[i] != null) {
-							if(Server.playerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
-								Connection.addIpToBanList(Server.playerHandler.players[i].connectedFrom);
-								Connection.addIpToFile(Server.playerHandler.players[i].connectedFrom);
-								c.sendMessage("You have IP banned the user: "+Server.playerHandler.players[i].playerName+" with the host: "+Server.playerHandler.players[i].connectedFrom);
-								Server.playerHandler.players[i].disconnected = true;
-							} 
+				
+				
+				
+				if (playerCommand.startsWith("xteleto")) {
+					String name = playerCommand.substring(8);
+					for (int i = 0; i < Config.MAX_PLAYERS; i++) {
+						if (Server.playerHandler.players[i] != null) {
+							if (Server.playerHandler.players[i].playerName.equalsIgnoreCase(name)) {
+								c.getPA().movePlayer(Server.playerHandler.players[i].getX(), Server.playerHandler.players[i].getY(), Server.playerHandler.players[i].heightLevel);
+							}
 						}
-					}
-				} catch(Exception e) {
-					c.sendMessage("Player Must Be Offline.");
+					}			
 				}
-			}
-			
-			if (playerCommand.startsWith("ban") && playerCommand.charAt(3) == ' ') { // use as ::ban name
-				try {	
-					String playerToBan = playerCommand.substring(4);
-					Connection.addNameToBanList(playerToBan);
-					Connection.addNameToFile(playerToBan);
-					for(int i = 0; i < Config.MAX_PLAYERS; i++) {
-						if(Server.playerHandler.players[i] != null) {
-							if(Server.playerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
-								Server.playerHandler.players[i].disconnected = true;
-							} 
-						}
-					}
-				} catch(Exception e) {
-					c.sendMessage("Player Must Be Offline.");
-				}
-			}
-			
-			if (playerCommand.startsWith("unban")) {
-				try {	
-					String playerToBan = playerCommand.substring(6);
-					Connection.removeNameFromBanList(playerToBan);
-					c.sendMessage(playerToBan + " has been unbanned.");
-				} catch(Exception e) {
-					c.sendMessage("Player Must Be Offline.");
-				}
-			}
-			if (playerCommand.startsWith("anim")) {
-				String[] args = playerCommand.split(" ");
-				c.startAnimation(Integer.parseInt(args[1]));
-				c.getPA().requestUpdates();
-			}
-			
-			if (playerCommand.startsWith("mute")) {
-				try {	
-					String playerToBan = playerCommand.substring(5);
-					Connection.addNameToMuteList(playerToBan);
-					for(int i = 0; i < Config.MAX_PLAYERS; i++) {
-						if(Server.playerHandler.players[i] != null) {
-							if(Server.playerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
-								Client c2 = (Client)Server.playerHandler.players[i];
-								c2.sendMessage("You have been muted by: " + c.playerName);
-								break;
-							} 
-						}
-					}
-				} catch(Exception e) {
-					c.sendMessage("Player Must Be Offline.");
-				}			
-			}
-			if (playerCommand.startsWith("ipmute")) {
-				try {	
-					String playerToBan = playerCommand.substring(7);
-					for(int i = 0; i < Config.MAX_PLAYERS; i++) {
-						if(Server.playerHandler.players[i] != null) {
-							if(Server.playerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
-								Connection.addIpToMuteList(Server.playerHandler.players[i].connectedFrom);
-								c.sendMessage("You have IP Muted the user: "+Server.playerHandler.players[i].playerName);
-								Client c2 = (Client)Server.playerHandler.players[i];
-								c2.sendMessage("You have been muted by: " + c.playerName);
-								break;
-							} 
-						}
-					}
-				} catch(Exception e) {
-					c.sendMessage("Player Must Be Offline.");
-				}			
-			}
-			if (playerCommand.startsWith("unipmute")) {
-				try {	
-					String playerToBan = playerCommand.substring(9);
-					for(int i = 0; i < Config.MAX_PLAYERS; i++) {
-						if(Server.playerHandler.players[i] != null) {
-							if(Server.playerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
-								Connection.unIPMuteUser(Server.playerHandler.players[i].connectedFrom);
-								c.sendMessage("You have Un Ip-Muted the user: "+Server.playerHandler.players[i].playerName);
-								break;
-							} 
-						}
-					}
-				} catch(Exception e) {
-					c.sendMessage("Player Must Be Offline.");
-				}			
-			}
-			if (playerCommand.startsWith("unmute")) {
-				try {	
-					String playerToBan = playerCommand.substring(7);
-					Connection.unMuteUser(playerToBan);
-				} catch(Exception e) {
-					c.sendMessage("Player Must Be Offline.");
-				}			
-			}
+				
 
+				
+				if(playerCommand.startsWith("npc") && c.playerName.equalsIgnoreCase("Sanity")) {
+					try {
+						int newNPC = Integer.parseInt(playerCommand.substring(4));
+						if(newNPC > 0) {
+							Server.npcHandler.spawnNpc(c, newNPC, c.absX, c.absY, 0, 0, 120, 7, 70, 70, false, false);
+							c.sendMessage("You spawn a Npc.");
+						} else {
+							c.sendMessage("No such NPC.");
+						}
+					} catch(Exception e) {
+						
+					}			
+				}
+				
+				
+				if (playerCommand.startsWith("ipban")) { // use as ::ipban name
+					try {
+						String playerToBan = playerCommand.substring(6);
+						for(int i = 0; i < Config.MAX_PLAYERS; i++) {
+							if(Server.playerHandler.players[i] != null) {
+								if(Server.playerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
+									Connection.addIpToBanList(Server.playerHandler.players[i].connectedFrom);
+									Connection.addIpToFile(Server.playerHandler.players[i].connectedFrom);
+									c.sendMessage("You have IP banned the user: "+Server.playerHandler.players[i].playerName+" with the host: "+Server.playerHandler.players[i].connectedFrom);
+									Server.playerHandler.players[i].disconnected = true;
+								} 
+							}
+						}
+					} catch(Exception e) {
+						c.sendMessage("Player Must Be Offline.");
+					}
+				}
+				
+				if (playerCommand.startsWith("ban") && playerCommand.charAt(3) == ' ') { // use as ::ban name
+					try {	
+						String playerToBan = playerCommand.substring(4);
+						Connection.addNameToBanList(playerToBan);
+						Connection.addNameToFile(playerToBan);
+						for(int i = 0; i < Config.MAX_PLAYERS; i++) {
+							if(Server.playerHandler.players[i] != null) {
+								if(Server.playerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
+									Server.playerHandler.players[i].disconnected = true;
+								} 
+							}
+						}
+					} catch(Exception e) {
+						c.sendMessage("Player Must Be Offline.");
+					}
+				}
+				
+				if (playerCommand.startsWith("unban")) {
+					try {	
+						String playerToBan = playerCommand.substring(6);
+						Connection.removeNameFromBanList(playerToBan);
+						c.sendMessage(playerToBan + " has been unbanned.");
+					} catch(Exception e) {
+						c.sendMessage("Player Must Be Offline.");
+					}
+				}
+				if (playerCommand.startsWith("anim")) {
+					String[] args = playerCommand.split(" ");
+					c.startAnimation(Integer.parseInt(args[1]));
+					c.getPA().requestUpdates();
+				}
+				
+				if (playerCommand.startsWith("mute")) {
+					try {	
+						String playerToBan = playerCommand.substring(5);
+						Connection.addNameToMuteList(playerToBan);
+						for(int i = 0; i < Config.MAX_PLAYERS; i++) {
+							if(Server.playerHandler.players[i] != null) {
+								if(Server.playerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
+									Client c2 = (Client)Server.playerHandler.players[i];
+									c2.sendMessage("You have been muted by: " + c.playerName);
+									break;
+								} 
+							}
+						}
+					} catch(Exception e) {
+						c.sendMessage("Player Must Be Offline.");
+					}			
+				}
+				if (playerCommand.startsWith("ipmute")) {
+					try {	
+						String playerToBan = playerCommand.substring(7);
+						for(int i = 0; i < Config.MAX_PLAYERS; i++) {
+							if(Server.playerHandler.players[i] != null) {
+								if(Server.playerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
+									Connection.addIpToMuteList(Server.playerHandler.players[i].connectedFrom);
+									c.sendMessage("You have IP Muted the user: "+Server.playerHandler.players[i].playerName);
+									Client c2 = (Client)Server.playerHandler.players[i];
+									c2.sendMessage("You have been muted by: " + c.playerName);
+									break;
+								} 
+							}
+						}
+					} catch(Exception e) {
+						c.sendMessage("Player Must Be Offline.");
+					}			
+				}
+				if (playerCommand.startsWith("unipmute")) {
+					try {	
+						String playerToBan = playerCommand.substring(9);
+						for(int i = 0; i < Config.MAX_PLAYERS; i++) {
+							if(Server.playerHandler.players[i] != null) {
+								if(Server.playerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
+									Connection.unIPMuteUser(Server.playerHandler.players[i].connectedFrom);
+									c.sendMessage("You have Un Ip-Muted the user: "+Server.playerHandler.players[i].playerName);
+									break;
+								} 
+							}
+						}
+					} catch(Exception e) {
+						c.sendMessage("Player Must Be Offline.");
+					}			
+				}
+				if (playerCommand.startsWith("unmute")) {
+					try {	
+						String playerToBan = playerCommand.substring(7);
+						Connection.unMuteUser(playerToBan);
+					} catch(Exception e) {
+						c.sendMessage("Player Must Be Offline.");
+					}		
+				}
+			}
 		}
 	}
 }
-		
-		
-		
-		
-		
-		
-		
-

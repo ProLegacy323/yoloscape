@@ -2101,7 +2101,7 @@ public class CombatAssistant{
 		c.npcIndex = 0;
 		c.faceUpdate(0);
 		c.playerIndex = 0;
-		c.getPA().resetFollow();
+		//c.getPA().resetFollow();
 		//c.sendMessage("Reset attack.");
 	}
 	

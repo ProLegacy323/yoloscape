@@ -14,7 +14,7 @@ import server.world.map.VirtualWorld;
 import server.event.EventManager;
 import server.event.Event;
 import server.event.EventContainer;
-
+import server.yolo.Logger;
 public class NPCHandler {
 	public static int maxNPCs = 10000;
 	public static int maxListedNPCs = 10000;
@@ -31,6 +31,7 @@ public class NPCHandler {
 		}
 		loadNPCList("./data/cfg/npc.cfg");
 		loadAutoSpawn("./data/cfg/spawn-config.cfg");
+		Logger.logConsole("Loaded " + npcs.length + " npcs.");
 	}
 	
 	public void multiAttackGfx(int i, int gfx) {
@@ -216,7 +217,7 @@ public class NPCHandler {
 			}
 		}
 		if(slot == -1) {
-			//Misc.println("No Free Slot");
+			Logger.logConsole("No Free Slot");
 			return;		// no free slot found
 		}
 		NPC newNPC = new NPC(slot, npcType);
@@ -262,8 +263,8 @@ public class NPCHandler {
 			}
 		}
 		if(slot == -1) {
-			//Misc.println("No Free Slot");
-			return;		// no free slot found
+			Logger.logConsole("No Free Slot");
+			return;		//no free slot found
 		}
 		NPC newNPC = new NPC(slot, npcType);
 		newNPC.absX = x;

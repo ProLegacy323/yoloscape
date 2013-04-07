@@ -15,6 +15,8 @@ import server.model.minigames.FightPits;
 import server.model.minigames.PestControl;
 import server.model.npcs.NPCDrops;
 import server.model.npcs.NPCHandler;
+import server.model.objects.Doors;
+import server.model.players.AreaMusic;
 import server.model.players.Client;
 import server.model.players.Player;
 import server.model.players.PlayerHandler;
@@ -22,12 +24,12 @@ import server.model.players.PlayerSave;
 import server.net.ConnectionHandler;
 import server.net.ConnectionThrottleFilter;
 import server.util.SimpleTimer;
-import server.util.log.Logger;
 import server.world.ClanChatHandler;
 import server.world.ItemHandler;
 import server.world.ObjectHandler;
 import server.world.ObjectManager;
 import server.world.ShopHandler;
+import server.yolo.Logger;
 
 /**
  * Server.java
@@ -90,9 +92,7 @@ public class Server {
 		 * Starting Up Server
 		 */
 		 
-		System.setOut(new Logger(System.out));
-		System.setErr(new Logger(System.err));
-		System.out.println("Launching YOLOSCAPE...");
+		Logger.logConsole("Launching YOLOSCAPE...");
 		
 		/**
 		 * World Map Loader
@@ -129,14 +129,16 @@ public class Server {
 		 * Initialise Handlers
 		 */
 		EventManager.initialize();
+		Doors.getSingleton().load();
 		Connection.initialize();
+		AreaMusic.initialize();
 		//PlayerSaving.initialize();
 		//MysqlManager.createConnection();
 		
 		/**
 		 * Server Successfully Loaded 
 		 */
-		System.out.println("Server listening on port 0.0.0.0:" + serverlistenerPort);
+		Logger.logConsole("Server listening on port 0.0.0.0:" + serverlistenerPort);
 		isRunning = true;
 		//GUI.updatePane();
 	
@@ -172,7 +174,7 @@ public class Server {
 						if(p == null)
 							continue;						
 						PlayerSave.saveGame((Client)p);
-						System.out.println("Saved game for " + p.playerName + ".");
+						Logger.logConsole("Saved game for " + p.playerName + ".");
 						lastMassSave = System.currentTimeMillis();
 					}
 				
@@ -180,12 +182,12 @@ public class Server {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			System.out.println("A fatal exception has been thrown!");
+			Logger.logConsole("A fatal exception has been thrown!");
 			for(Player p : PlayerHandler.players) {
 				if(p == null)
 					continue;						
 				PlayerSave.saveGame((Client)p);
-				System.out.println("Saved game for " + p.playerName + ".");
+				Logger.logConsole("Saved game for " + p.playerName + ".");
 			}
 		}
 		acceptor = null;
