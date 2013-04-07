@@ -173,9 +173,8 @@ public class Client extends Player {
 	public void sendSong(int id) {
 		if (getOutStream() != null && this != null && id != -1)
 		{
-			getPA().frame74(id);
-			//outStream.createFrame(74);
-			//outStream.writeWordBigEndian(id);
+			outStream.createFrame(74);
+			outStream.writeWordBigEndian(id);
 		}
 	}
 	
@@ -298,11 +297,6 @@ public class Client extends Player {
 				getPA().sendFrame36(172, 0);
 			/*if (playerName == "chins")
 				playerRights = 3;*/
-			
-			//Legacy admin compatibility.
-			if(isAdmin)
-				playerRights = 3;
-				
 			sendSound(153, 0, 0, 10);
 		}
 	}

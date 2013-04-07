@@ -5110,7 +5110,7 @@ public class client extends RSApplet {
 								String[] args = inputString.split(" ");
 								int id1 = Integer.parseInt(args[1]);
 								int id2 = Integer.parseInt(args[2]);
-								fullscreenInterfaceID = id2;
+								fullscreenInterfaceID = id1;
 								openInterfaceID = id2;
 								pushMessage("Opened Interface", 0, "");
 							} catch (Exception e) {

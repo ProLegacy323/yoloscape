@@ -8,6 +8,7 @@ import java.awt.image.PixelGrabber;
 import java.awt.image.*;
 import javax.imageio.*;
 import java.io.*;
+import java.util.*;
 import javax.swing.ImageIcon;
 
 public final class Sprite extends DrawingArea {
@@ -17,8 +18,7 @@ public final class Sprite extends DrawingArea {
 		myWidth = anInt1444 = i;
 		myHeight = anInt1445 = j;
 		anInt1442 = anInt1443 = 0;
-	}
-	
+	}	
 	
 	public String location = "./sprites/";
 

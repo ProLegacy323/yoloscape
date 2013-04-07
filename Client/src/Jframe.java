@@ -38,7 +38,7 @@ public class Jframe extends client implements ActionListener {
 
 			JMenu fileMenu = new JMenu("File");
 
-			String[] mainButtons = new String[] { "Project-Insanity.net", "-", "Exit" };
+			String[] mainButtons = new String[] { "Yolo", "-", "Exit" };
 
 			for (String name : mainButtons) {
 				JMenuItem menuItem = new JMenuItem(name);
@@ -103,7 +103,7 @@ public class Jframe extends client implements ActionListener {
 				if (cmd.equalsIgnoreCase("exit")) {
 					System.exit(0);
 				}
-				if (cmd.equalsIgnoreCase("Project-Insanity.net")) {
+				if (cmd.equalsIgnoreCase("Yolo")) {
 					openUpWebSite("http://static.tumblr.com/7988da8c70fd35c38299b755fd5d4b53/huxxfoi/1Tfmjeesu/tumblr_static_gaben.jpg");
 				}	
 			}
