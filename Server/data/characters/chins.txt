@@ -4,9 +4,15 @@ character-password = chins
 
 [CHARACTER]
 character-height = 0
+<<<<<<< HEAD
 character-posx = 3222
 character-posy = 3216
 character-rights = 3
+=======
+character-posx = 3216
+character-posy = 3256
+character-rights = 0
+>>>>>>> 762c5ea20d6dee3086e40d28a1d1cf33ae1423d0
 crystal-bow-shots = 0
 skull-timer = 0
 magic-book = 0
@@ -91,6 +97,7 @@ character-skill = 23	1	0
 character-skill = 24	1	0
 
 [ITEMS]
+<<<<<<< HEAD
 character-item = 0	996	101300
 character-item = 1	1732	1
 character-item = 2	555	200
@@ -103,6 +110,36 @@ character-item = 8	842	1
 character-item = 9	883	500
 character-item = 10	381	100
 character-item = 11	593	1
+=======
+character-item = 0	996	1400000
+character-item = 1	1732	1
+character-item = 2	555	5800
+character-item = 3	556	5800
+character-item = 4	557	5800
+character-item = 5	559	17400
+character-item = 6	1382	1
+character-item = 7	1324	1
+character-item = 8	842	1
+character-item = 9	883	14500
+character-item = 10	381	2900
+character-item = 11	1732	1
+character-item = 12	1382	1
+character-item = 13	1324	1
+character-item = 14	842	1
+character-item = 15	1732	1
+character-item = 16	1382	1
+character-item = 17	1324	1
+character-item = 18	842	1
+character-item = 19	1732	1
+character-item = 20	1382	1
+character-item = 21	1324	1
+character-item = 22	842	1
+character-item = 23	1732	1
+character-item = 24	1382	1
+character-item = 25	1324	1
+character-item = 26	842	1
+character-item = 27	1732	1
+>>>>>>> 762c5ea20d6dee3086e40d28a1d1cf33ae1423d0
 
 [BANK]
 character-bank = 0	996	1900000

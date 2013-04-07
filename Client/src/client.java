@@ -3,6 +3,7 @@
 // Decompiler options: packimports(3) 
 
 import java.applet.AppletContext;
+import java.util.Random;
 import java.awt.*;
 import java.io.*;
 import java.math.BigInteger;
@@ -116,7 +117,8 @@ public class client extends RSApplet {
 	
 	// decompresses the music
 	public void musics() {
-		for (int musicIndex = 0; musicIndex < 3536; musicIndex++) {
+		System.out.println("musics() called");	
+		for(int musicIndex = 0; musicIndex < 3536; musicIndex++) {
 			byte[] abyte0 = GetMusic(musicIndex);
 			if (abyte0 != null && abyte0.length > 0) {
 				decompressors[3].method234(abyte0.length, abyte0, musicIndex);
@@ -124,10 +126,15 @@ public class client extends RSApplet {
 		}
 	}
 	
-	// actually creates the .gz file for unpacking and editing
+	// packs the gz file into the index
 	public byte[] GetMusic(int index) {
+		//System.out.println("GetMusic() was called");
+		String fileRoot = null;
 		try {
-			File music = new File("./Music"+index+".gz");
+			File music = new File("./cache/Music/"+index+".gz");
+			fileRoot = music.getPath();
+			if (fileRoot.contains("/30.gz"))
+				System.out.println("Loaded 30.gz!");
 			byte[] aByte = new byte[(int)music.length()];
 			FileInputStream inputStream = new FileInputStream(music);
 			inputStream.read(aByte);
@@ -135,6 +142,7 @@ public class client extends RSApplet {
 			inputStream.close();
 			return aByte;
 		} catch (Exception e) {
+			//System.out.println(e.getMessage());
 			return null;
 		}
 	}
@@ -507,6 +515,49 @@ public class client extends RSApplet {
 	{
 		signlink.midifade = flag ? 1 : 0;
 		signlink.midisave(abyte0, abyte0.length);
+	}
+	
+	// start index repacking methods
+	public String indexLocation(int cacheIndex, int index) {
+		return signlink.findcachedir() + "index" + cacheIndex + "/" + (index != -1 ? index + ".gz" : "");
+	}
+	
+	public void repackCacheIndex(int cacheIndex) {
+		System.out.println("Started repacking index " + cacheIndex + ".");
+		int indexLength = new File(indexLocation(cacheIndex, -1)).listFiles().length;
+		File[] file = new File(indexLocation(cacheIndex, -1)).listFiles();
+		try {
+			for (int index = 0; index < indexLength; index++) {
+				int fileIndex = Integer.parseInt(getFileNameWithoutExtension(file[index].toString()));
+				byte[] data = fileToByteArray(cacheIndex, fileIndex);
+				if (data != null && data.length > 0) {
+					decompressors[cacheIndex].method234(data.length, data, fileIndex);
+					System.out.println("Repacked " + fileIndex + ".");
+				} else {
+					System.out.println("Unable to locate index " + fileIndex + ".");
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Error packing cache index " + cacheIndex + ".");
+			e.printStackTrace();
+		}
+		System.out.println("Finished repacking " + cacheIndex + ".");
+	}
+	
+	public byte[] fileToByteArray(int cacheIndex, int index) {
+		try {
+			if (indexLocation(cacheIndex, index).length() <= 0 || indexLocation(cacheIndex, index) == null) {
+				return null;
+			}
+			File file = new File(indexLocation(cacheIndex, index));
+			byte[] fileData = new byte[(int)file.length()];
+			FileInputStream inputStream = new FileInputStream(file);
+			inputStream.read(fileData);
+			inputStream.close();
+			return fileData;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	private void method22()
@@ -2163,9 +2214,24 @@ public class client extends RSApplet {
 			aClass11Array1230[i].method210();
 		System.gc();
 		//stopMidi();
-		currentSong = 30;
-		nextSong = 30;
+		currentSong = GetRandomSong();
+		nextSong = GetRandomSong();
 		prevSong = 0;
+	}
+	
+	private int GetRandomSong()
+	{
+		// Remove Kebab, Where The Hood At, Call me Maybe, Green Hill Zone, Never gonna give you up, Thomas the Tank Engine, Postman Pat
+		int[] titleSongs = { 30, 4, 7, 9, 11, 12, 19 };
+		
+		Random generator = new Random();
+		int min, max;
+		min = 0;
+		max = titleSongs.length-1;
+		
+		int randomNum = min + (int)(Math.random() * ((max - min) + 1));
+		System.out.println(randomNum);
+		return titleSongs[randomNum];
 	}
 
 	private void method45() {
@@ -3244,6 +3310,7 @@ public class client extends RSApplet {
 			drawLogo();
 			loadTitleScreen();
 		}
+		//repackCacheIndex(3);
 		welcomeScreenRaised = true;
 	}
 
@@ -3372,13 +3439,13 @@ public class client extends RSApplet {
 				abyte0 = decompressors[0].decompress(i);
 		}
 		catch(Exception _ex) { }
-		if(abyte0 != null)
+		/*if(abyte0 != null)
 		{
-	//		aCRC32_930.reset();
-	//		aCRC32_930.update(abyte0);
-	//		int i1 = (int)aCRC32_930.getValue();
-	//		if(i1 != j)
-		}
+			aCRC32_930.reset();
+			aCRC32_930.update(abyte0);
+			int i1 = (int)aCRC32_930.getValue();
+			if(i1 != j)
+		}*/
 		if(abyte0 != null)
 		{
 			StreamLoader streamLoader = new StreamLoader(abyte0);
@@ -7082,6 +7149,9 @@ public class client extends RSApplet {
 
 	void startUp()
 	{
+		drawLoadingText(10, "Reading Config.cfg");
+		Config.ReadConfig();
+		Config.ShowConfigInfo();
 		drawLoadingText(20, "Generating swags");
 		if(signlink.sunjava)
 			super.minDelay = 5;
@@ -7122,14 +7192,16 @@ public class client extends RSApplet {
 			drawLoadingText(60, "Connecting to update server");
 			onDemandFetcher = new OnDemandFetcher();
 			onDemandFetcher.start(streamLoader_6, this);
-			//musics();
+			if (Config.MIDI_PACKING_ENABLED == true)
+				musics();
+			
 			Class36.method528(onDemandFetcher.getAnimCount());
 			Model.method459(onDemandFetcher.getVersionCount(0), onDemandFetcher);
 			ModelDecompressor.loadModels();
 			//preloadModels();
 			if(!lowMem)
 			{
-				nextSong = 30;
+				nextSong = GetRandomSong();
 				try
 				{
 					nextSong = Integer.parseInt(getParameter("music"));

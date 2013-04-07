@@ -173,8 +173,9 @@ public class Client extends Player {
 	public void sendSong(int id) {
 		if (getOutStream() != null && this != null && id != -1)
 		{
-			outStream.createFrame(74);
-			outStream.writeWordBigEndian(id);
+			getPA().frame74(id);
+			//outStream.createFrame(74);
+			//outStream.writeWordBigEndian(id);
 		}
 	}
 	
