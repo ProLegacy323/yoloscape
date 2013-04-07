@@ -64,17 +64,23 @@ public class GUI extends JFrame {
 		runButton.setBounds(70, 143, 233, 42);
 		getContentPane().add(runButton);
 		runButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				int port = 43594;
-				String host = "0.0.0.0";
-				if(!hostField.getText().isEmpty() && hostField.getText() != null)
+				new Thread(new Runnable() {
+				@Override
+				public void run() {
+					int port = 43594;
+					String host = "0.0.0.0";
+					if(!hostField.getText().isEmpty() && hostField.getText() != null)
 					host = hostField.getText();
-				if(!portField.getText().isEmpty() && portField.getText() != null)
+					if(!portField.getText().isEmpty() && portField.getText() != null)
 					port = Integer.valueOf(portField.getText());
-				new client(host, port).execute(new String[]{"10", "0", "highmem", "members", "32"});
-				new Jframe(host, port, ClientTitle);	
-			}
-		});
+					new client(host, port).execute(new String[]{"10", "0", "highmem", "members", "32"});
+					new Jframe(host, port, ClientTitle);
+				}
+			}).start();
+		}
+	});
 		
 		// Server Host
 		JLabel lblSetHost = new JLabel("Set Host:");

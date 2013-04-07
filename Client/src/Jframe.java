@@ -25,7 +25,7 @@ public class Jframe extends client implements ActionListener {
 	public void initUI(String title) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			JPopupMenu.setDefaultLightWeightPopupEnabled(true);
+			JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 			frame = new JFrame((title.equalsIgnoreCase("") ? "Client" : title));
 			frame.setLayout(new BorderLayout());
 			frame.setResizable(true);
