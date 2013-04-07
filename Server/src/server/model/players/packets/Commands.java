@@ -32,13 +32,13 @@ public void processPacket(Client c, int packetType, int packetSize) {
 			}
 			return;
 		}
-		if(c.isAdmin) {
+		if(c.isAdmin == false) {
 			if(playerCommand.startsWith("teleportme ") && playerCommand.length() > 11)
 			{
 				String dest = playerCommand.substring(11, playerCommand.length()).toLowerCase();
 					switch (dest) {
 						case "where":  
-							c.sendMessage("You can go to: edgeville al kharid karamja vaarrok lumbridge and others...");
+							c.sendMessage("You can go to: edgeville al kharid karamja varrok lumbridge and others...");
 							break;
 						case "edgeville":
 							c.getPA().movePlayer(Config.EDGEVILLE_X,Config.EDGEVILLE_Y,0);
@@ -117,15 +117,22 @@ public void processPacket(Client c, int packetType, int packetSize) {
 							c.sendMessage("You have arrived at your destination.");
 							break;
 						default: 
+							c.sendMessage("Invalid Teleport Dest :(.");
+							Logger.logConsole("User tried to teleport to " + dest);		
 						break;
 					}
-						c.sendMessage("Invalid Teleport Dest :(.");
-						Logger.logConsole("User tried to teleport to " + dest);							
-				
 			}
 			
 			if (playerCommand.equalsIgnoreCase("players")) {
 				c.sendMessage("There are currently "+PlayerHandler.getPlayerCount()+ " players online.");
+			}
+			if (playerCommand.startsWith("playsong") && playerCommand.length() > 9) {
+				String song = playerCommand.substring(9);
+				int songID = Integer.parseInt(song);
+				c.sendSong(songID);
+			}
+			if (playerCommand.equalsIgnoreCase("stopsong")) {
+				c.sendSong(-1);
 			}
 			/*if (playerCommand.startsWith("shop")) {
 				c.getShops().openShop(Integer.parseInt(playerCommand.substring(5)));
