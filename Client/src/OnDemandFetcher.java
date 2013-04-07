@@ -14,16 +14,14 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 
 	private boolean crcMatches(int i, int j, byte abyte0[])
     {
-		//if(abyte0 == null || abyte0.length < 2)
-				//return false;
+		if(abyte0 == null || abyte0.length < 2)
+				return false;
 		int k = abyte0.length - 2;
 		int l = ((abyte0[k] & 0xff) << 8) + (abyte0[k + 1] & 0xff);
 		crc32.reset();
 		crc32.update(abyte0, 0, k);
 		int i1 = (int) crc32.getValue();
-		//return l == i && i1 == j;
-		return true;
-               
+		return l == i && i1 == j;
     }
     private void readData()  {
 		try {
@@ -265,15 +263,15 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 
     public int getAnimCount()
     {
-	return anIntArray1360.length;
+	return Short.MAX_VALUE;
     }
 
     public void method558(int i, int j)
     {
-		if(i < 0 || i > versions.length || j < 0 || j > versions[i].length)
-			return;
-		if(versions[i][j] == 0)
-			return;
+		//if(i < 0 || i > versions.length || j < 0 || j > versions[i].length)
+			//return;
+		//if(versions[i][j] == 0)
+			//return;
 		synchronized(nodeSubList)
 		{
 			for(OnDemandData onDemandData = (OnDemandData) nodeSubList.reverseGetFirst(); onDemandData != null; onDemandData = (OnDemandData) nodeSubList.reverseGetNext())
@@ -294,7 +292,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 
     public int getModelIndex(int i)
     {
-	return modelIndices[i] & 0xff;
+	return Short.MAX_VALUE;
     }
 
     public void run()
@@ -319,7 +317,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 			break;
 		    waiting = false;
 		    checkReceived();
-		    handleFailed();
+		    //handleFailed();
 		    if(uncompletedCount == 0 && j >= 5)
 			break;
 		    method568();
@@ -406,8 +404,8 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
     {
 	if(clientInstance.decompressors[0] == null)
 	    return;
-	if(versions[j][i] == 0)
-	    return;
+	//if(versions[j][i] == 0)
+	    //return;
 	if(fileStatus[j][i] == 0)
 	    return;
 	if(anInt1332 == 0)
@@ -482,9 +480,9 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
     {
 	if(clientInstance.decompressors[0] == null)
 	    return;
-	if(versions[i][j] == 0)
-	    return;
-	byte abyte0[] = clientInstance.decompressors[i + 1].decompress(j);
+	//if(versions[i][j] == 0)
+	    //return;
+	//byte abyte0[] = clientInstance.decompressors[i + 1].decompress(j);
 	//if(crcMatches(versions[i][j], crcs[i][j], abyte0))
 	//    return;
 	//fileStatus[i][j] = byte0;

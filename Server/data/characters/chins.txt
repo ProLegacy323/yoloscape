@@ -5,12 +5,33 @@ character-password = chins
 [CHARACTER]
 character-height = 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 character-posx = 3087
 character-posy = 3488
 =======
 character-posx = 3247
 character-posy = 3265
 >>>>>>> c6191803f46c694eee4aa6eab9fd2e6f795b1dc4
+||||||| merged common ancestors
+<<<<<<< Temporary merge branch 1
+character-posx = 3247
+character-posy = 3265
+||||||| merged common ancestors
+<<<<<<< HEAD
+character-posx = 3301
+character-posy = 3207
+=======
+character-posx = 3089
+character-posy = 3500
+>>>>>>> ca11f00424bfee9634c958dd82d52c98e80a3abd
+=======
+character-posx = 3087
+character-posy = 3488
+>>>>>>> Temporary merge branch 2
+=======
+character-posx = 3216
+character-posy = 3256
+>>>>>>> d1b900aafc8bacd85d6138e83b2d60afcd1ae7dd
 character-rights = 0
 crystal-bow-shots = 0
 skull-timer = 0
@@ -97,6 +118,7 @@ character-skill = 24	1	0
 
 [ITEMS]
 <<<<<<< HEAD
+<<<<<<< HEAD
 character-item = 0	996	300000
 character-item = 1	1732	1
 character-item = 2	555	600
@@ -111,9 +133,52 @@ character-item = 3	556	4000
 character-item = 4	557	4000
 character-item = 5	559	12000
 >>>>>>> c6191803f46c694eee4aa6eab9fd2e6f795b1dc4
+||||||| merged common ancestors
+<<<<<<< Temporary merge branch 1
+character-item = 0	996	2000000
+||||||| merged common ancestors
+<<<<<<< HEAD
+character-item = 0	996	900000
+=======
+character-item = 0	996	300000
+>>>>>>> Temporary merge branch 2
+character-item = 1	1732	1
+<<<<<<< Temporary merge branch 1
+character-item = 2	555	4000
+character-item = 3	556	4000
+character-item = 4	557	4000
+character-item = 5	559	12000
+||||||| merged common ancestors
+character-item = 2	555	1800
+character-item = 3	556	1800
+character-item = 4	557	1800
+character-item = 5	559	5400
+=======
+character-item = 0	996	500000
+character-item = 1	1732	1
+character-item = 2	555	1000
+character-item = 3	556	1000
+character-item = 4	557	1000
+character-item = 5	559	3000
+>>>>>>> ca11f00424bfee9634c958dd82d52c98e80a3abd
+=======
+character-item = 2	555	600
+character-item = 3	556	600
+character-item = 4	557	600
+character-item = 5	559	1800
+>>>>>>> Temporary merge branch 2
+=======
+character-item = 0	996	1400000
+character-item = 1	1732	1
+character-item = 2	555	5800
+character-item = 3	556	5800
+character-item = 4	557	5800
+character-item = 5	559	17400
+>>>>>>> d1b900aafc8bacd85d6138e83b2d60afcd1ae7dd
 character-item = 6	1382	1
 character-item = 7	1324	1
 character-item = 8	842	1
+<<<<<<< HEAD
 <<<<<<< HEAD
 character-item = 9	883	1500
 character-item = 10	381	300
@@ -121,6 +186,30 @@ character-item = 10	381	300
 character-item = 9	883	10000
 character-item = 10	381	2000
 >>>>>>> c6191803f46c694eee4aa6eab9fd2e6f795b1dc4
+||||||| merged common ancestors
+<<<<<<< Temporary merge branch 1
+character-item = 9	883	10000
+character-item = 10	381	2000
+||||||| merged common ancestors
+<<<<<<< HEAD
+character-item = 9	1732	1
+character-item = 10	381	900
+character-item = 11	1732	1
+character-item = 12	1382	1
+character-item = 13	1732	1
+character-item = 14	842	1
+character-item = 15	1382	1
+=======
+character-item = 9	883	2500
+character-item = 10	381	500
+=======
+character-item = 9	883	1500
+character-item = 10	381	300
+>>>>>>> Temporary merge branch 2
+=======
+character-item = 9	883	14500
+character-item = 10	381	2900
+>>>>>>> d1b900aafc8bacd85d6138e83b2d60afcd1ae7dd
 character-item = 11	1732	1
 character-item = 12	1382	1
 character-item = 13	1324	1
@@ -130,7 +219,12 @@ character-item = 16	1382	1
 character-item = 17	1324	1
 character-item = 18	842	1
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+||||||| merged common ancestors
+<<<<<<< Temporary merge branch 1
+=======
+>>>>>>> d1b900aafc8bacd85d6138e83b2d60afcd1ae7dd
 character-item = 19	1732	1
 character-item = 20	1382	1
 character-item = 21	1324	1
@@ -140,7 +234,32 @@ character-item = 24	1382	1
 character-item = 25	1324	1
 character-item = 26	842	1
 character-item = 27	1732	1
+<<<<<<< HEAD
 >>>>>>> c6191803f46c694eee4aa6eab9fd2e6f795b1dc4
+||||||| merged common ancestors
+||||||| merged common ancestors
+character-item = 19	1732	1
+character-item = 20	1382	1
+<<<<<<< HEAD
+character-item = 21	842	1
+character-item = 22	842	1
+character-item = 23	1732	1
+character-item = 24	1382	1
+character-item = 25	883	1000
+character-item = 26	842	1
+character-item = 27	1732	1
+=======
+character-item = 21	1324	1
+character-item = 22	842	1
+character-item = 23	1732	1
+character-item = 24	1382	1
+character-item = 25	1324	1
+character-item = 26	842	1
+>>>>>>> ca11f00424bfee9634c958dd82d52c98e80a3abd
+=======
+>>>>>>> Temporary merge branch 2
+=======
+>>>>>>> d1b900aafc8bacd85d6138e83b2d60afcd1ae7dd
 
 [BANK]
 character-bank = 0	996	800000
